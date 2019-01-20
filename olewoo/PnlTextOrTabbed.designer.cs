@@ -41,7 +41,7 @@
             this.pnlOleText.SelectedIndex = 0;
             this.pnlOleText.Size = new System.Drawing.Size(321, 293);
             this.pnlOleText.TabIndex = 0;
-            this.pnlOleText.SelectedIndexChanged += new System.EventHandler(pnlOleText_TabIndexChanged);
+            this.pnlOleText.SelectedIndexChanged += new System.EventHandler(PnlOleText_TabIndexChanged);
             // 
             // txtOleText
             // 

@@ -19,7 +19,7 @@ namespace olewoo_cs
         SetTextDelg _std; // for setting the title of the tab I'm contained in.
         PnlTextOrTabbed _parent;
         bool _rewinding;
-
+        TreeNode _n;
 
         public PnlOleText()
         {
@@ -28,22 +28,27 @@ namespace olewoo_cs
             _fo = new RichIDLFormatter(rtfOleText);
             _history = new LinkedList<TreeNode>();
             rtfOleText.LinkClicked += LinkClicked;
-            rtfOleText.KeyDown += txtOleText_KeyDown;
-            rtfOleText.KeyPress += txtOleText_KeyPress;
+            rtfOleText.KeyDown += TxtOleText_KeyDown;
+            rtfOleText.KeyPress += TxtOleText_KeyPress;
         }
+
         public PnlOleText(SetTextDelg s) : this() // makes the c++ me weep.
         {
             _std = s;
         }
+
         private void AddHistory(TreeNode tn)
         {
             if (_rewinding) return;
             if (_history.Count > 50) _history.RemoveFirst(); // O(N)? :P
             _history.AddLast(tn);
         }
+
         public void RewindOne()
         {
-            if (_history.Count == 0) return; // O(N)? :P
+            if (_history.Count == 0)
+                return; // O(N)? :P
+
             try
             {
                 _rewinding = true;
@@ -52,6 +57,7 @@ namespace olewoo_cs
                 {
                     tn.TreeView.SelectedNode = tn;
                 }
+
                 _history.RemoveLast();
             }
             finally
@@ -60,6 +66,7 @@ namespace olewoo_cs
             }
 
         }
+
         void LinkClicked(object sender, LinkClickedEventArgs e)
         {
             NamedNode nn = _parent.NodeLocator.FindLinkMatch(e.LinkText);
@@ -68,10 +75,12 @@ namespace olewoo_cs
                 nn.TreeNode.TreeView.SelectedNode = nn.TreeNode;
             }
         }
+
         public PnlTextOrTabbed TabParent
         {
             set => _parent = value;
         }
+
         public TreeNode TreeNode
         {
             get => _n;
@@ -89,6 +98,7 @@ namespace olewoo_cs
                         _fo.Flush();
                         rtfOleText.Select(0, 0);
                     }
+
                     if (_std != null)
                     {
                         string sn = tn == null ? "..." : tn.ShortName;
@@ -102,7 +112,9 @@ namespace olewoo_cs
 
         public bool FindNextText(string needle, bool searchDown)
         {
-            if (rtfOleText.Text == "") return false;
+            if (rtfOleText.Text == "")
+                return false;
+
             int idx = rtfOleText.SelectionStart;
             int pos = -1;
             if (searchDown)
@@ -124,8 +136,9 @@ namespace olewoo_cs
                 // Something is broken here - when debugging, the 1 becomes an invalid number!
                 // Search up disabled to stop this occurrence.
                 throw new NotImplementedException();
-//                pos = txtOleText.Text.LastIndexOf(needle, 1, idx, StringComparison.CurrentCultureIgnoreCase);
+                //                pos = txtOleText.Text.LastIndexOf(needle, 1, idx, StringComparison.CurrentCultureIgnoreCase);
             }
+
             if (pos != -1)
             {
                 rtfOleText.SelectionStart = pos;
@@ -133,11 +146,10 @@ namespace olewoo_cs
                 rtfOleText.ScrollToCaret();
                 return true;
             }
-            
             return false;
         }
 
-        public void txtOleText_KeyDown(object sender, KeyEventArgs e)
+        public void TxtOleText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control)
             {
@@ -147,23 +159,21 @@ namespace olewoo_cs
                         var fd = new FindDialog(this);
                         fd.ShowDialog(rtfOleText);
                         break;
+
                     case Keys.A:
                         rtfOleText.SelectAll();
                         break;
+
                     case Keys.C:
                         Clipboard.SetText(rtfOleText.SelectedText);
-                        break;
-                    default:
                         break;
                 }
             }
         }
 
-        public void txtOleText_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = true;
+        public void TxtOleText_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = true;
 
-        TreeNode _n;
-
-        private void txtOleText_TextChanged(object sender, EventArgs e)
+        private void TxtOleText_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -225,5 +235,4 @@ namespace olewoo_cs
             _sb.Length = 0;
         }
     }
-
 }

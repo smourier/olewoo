@@ -6,12 +6,6 @@
  *
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace olewoo_cs
@@ -19,7 +13,6 @@ namespace olewoo_cs
     public partial class PnlTextOrTabbed : UserControl
     {
         wooctrl _parent;
-        NodeLocator _nl;
 
         public PnlTextOrTabbed()
         {
@@ -30,6 +23,7 @@ namespace olewoo_cs
             pnlOleText.ImageList = null;
             pnlOleText.InformTabRemoved = TabPageRemoved;
         }
+
         public wooctrl ParentCtrl
         {
             set
@@ -38,11 +32,9 @@ namespace olewoo_cs
                 pnlOleText.ImageList = value.ImageList;
             }
         }
-        public NodeLocator NodeLocator
-        {
-            set => _nl = value;
-            get => _nl;
-        }
+
+        public NodeLocator NodeLocator { get; set; }
+
         public void SetCurrentNode(TreeNode n)
         {
             if (pnlOleText.TabCount <= 1)
@@ -54,6 +46,7 @@ namespace olewoo_cs
                 (pnlOleText.SelectedTab.Tag as PnlOleText).TreeNode = n;
             }
         }
+
         public void RewindOne()
         {
             if (pnlOleText.TabCount <= 1)
@@ -65,11 +58,12 @@ namespace olewoo_cs
                 (pnlOleText.SelectedTab.Tag as PnlOleText).RewindOne();
             }
         }
+
         private void AddTabPage(TreeNode n)
         {
             var tp = new TabPage();
             tp.ImageIndex = 0;
-            var txtctrl = new PnlOleText( x => tp.Text = x );
+            var txtctrl = new PnlOleText(x => tp.Text = x);
             txtctrl.TreeNode = n;
             txtctrl.TabParent = this;
             tp.Tag = txtctrl;
@@ -77,6 +71,7 @@ namespace olewoo_cs
             txtctrl.Dock = DockStyle.Fill;
             pnlOleText.TabPages.Add(tp);
         }
+
         private void TabPageRemoved()
         {
             switch (pnlOleText.TabPages.Count)
@@ -95,6 +90,7 @@ namespace olewoo_cs
                     break;
             }
         }
+
         public void AddTab(TreeNode n)
         {
             if (pnlOleText.TabPages.Count == 0)
@@ -110,13 +106,11 @@ namespace olewoo_cs
             }
         }
 
-        public void pnlOleText_TabIndexChanged(object sender, EventArgs e)
+        public void PnlOleText_TabIndexChanged(object sender, EventArgs e)
         {
             if (pnlOleText.SelectedTab == null) return;
             if (!(pnlOleText.SelectedTab.Tag is PnlOleText pot)) return;
             _parent.SelectTreeNode(pot.TreeNode);
         }
     }
-
-    
 }
