@@ -34,13 +34,13 @@ namespace olewoo_cs
 
                 RectangleF tabTextArea = RectangleF.Empty;
 
-                for (int nIndex = 0; nIndex < this.TabCount; nIndex++)
+                for (int nIndex = 0; nIndex < TabCount; nIndex++)
                 {
-                    tabTextArea = this.GetTabRect(nIndex);
-                    if (nIndex == this.SelectedIndex)
+                    tabTextArea = GetTabRect(nIndex);
+                    if (nIndex == SelectedIndex)
                     {
                         var icon = new Rectangle((int)tabTextArea.X, (int)tabTextArea.Y, (int)tabTextArea.Width, (int)tabTextArea.Height);
-                        e.Graphics.DrawImageUnscaled(this.ImageList.Images[0], new Point(icon.Left + icon.Width - 16, icon.Top + icon.Height - 16));
+                        e.Graphics.DrawImageUnscaled(ImageList.Images[0], new Point(icon.Left + icon.Width - 16, icon.Top + icon.Height - 16));
                     }
                     else
                     {
@@ -64,27 +64,27 @@ namespace olewoo_cs
                           }
                           _Path.Dispose();
                     }
-                    string str = this.TabPages[nIndex].Text;
+                    string str = TabPages[nIndex].Text;
                     var stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Near;
                     tabTextArea.Offset(2, 2);
-                    e.Graphics.DrawString(str, this.Font, new SolidBrush(this.TabPages[nIndex].ForeColor), tabTextArea, stringFormat);                    
+                    e.Graphics.DrawString(str, Font, new SolidBrush(TabPages[nIndex].ForeColor), tabTextArea, stringFormat);                    
                 }
             }
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-                var tabTextArea = (RectangleF)this.GetTabRect(SelectedIndex);
+                var tabTextArea = (RectangleF)GetTabRect(SelectedIndex);
                 var icon = new Rectangle((int)tabTextArea.X, (int)tabTextArea.Y, (int)tabTextArea.Width, (int)tabTextArea.Height);
                 tabTextArea =
                     new RectangleF(tabTextArea.X + tabTextArea.Width - 16, 4, 16,16);
                 var pt = new Point(e.X, e.Y);
                 if (tabTextArea.Contains(pt))
                 {
-                    var icu = this.SelectedTab.Tag as IClearUp; // IDispose not appropriate.
+                    var icu = SelectedTab.Tag as IClearUp; // IDispose not appropriate.
                     if (icu != null) icu.ClearUp();
-                    this.TabPages.Remove(this.SelectedTab);
+                    TabPages.Remove(SelectedTab);
                     if (_itr != null) _itr();
                 }
         }

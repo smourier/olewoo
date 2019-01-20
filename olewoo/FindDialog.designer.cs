@@ -33,8 +33,8 @@
             this.btnFindNext = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbFindUp = new System.Windows.Forms.RadioButton();
             this.rbFindDown = new System.Windows.Forms.RadioButton();
+            this.rbFindUp = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +66,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(303, 41);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -87,17 +88,6 @@
             this.groupBox1.Visible = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // rbFindUp
-            // 
-            this.rbFindUp.AutoSize = true;
-            this.rbFindUp.Location = new System.Drawing.Point(10, 19);
-            this.rbFindUp.Name = "rbFindUp";
-            this.rbFindUp.Size = new System.Drawing.Size(39, 17);
-            this.rbFindUp.TabIndex = 0;
-            this.rbFindUp.TabStop = true;
-            this.rbFindUp.Text = "&Up";
-            this.rbFindUp.UseVisualStyleBackColor = true;
-            // 
             // rbFindDown
             // 
             this.rbFindDown.AutoSize = true;
@@ -110,13 +100,24 @@
             this.rbFindDown.Text = "&Down";
             this.rbFindDown.UseVisualStyleBackColor = true;
             // 
+            // rbFindUp
+            // 
+            this.rbFindUp.AutoSize = true;
+            this.rbFindUp.Location = new System.Drawing.Point(10, 19);
+            this.rbFindUp.Name = "rbFindUp";
+            this.rbFindUp.Size = new System.Drawing.Size(39, 17);
+            this.rbFindUp.TabIndex = 0;
+            this.rbFindUp.TabStop = true;
+            this.rbFindUp.Text = "&Up";
+            this.rbFindUp.UseVisualStyleBackColor = true;
+            // 
             // FindDialog
             // 
             this.AcceptButton = this.btnFindNext;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(390, 75);
+            this.ClientSize = new System.Drawing.Size(390, 100);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnFindNext);

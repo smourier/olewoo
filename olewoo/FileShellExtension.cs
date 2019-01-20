@@ -40,7 +40,7 @@ namespace olewoo_cs
                     key.SetValue(null, menuCommand);
                 }
             }
-            catch (System.UnauthorizedAccessException)
+            catch (UnauthorizedAccessException)
             {
                 System.Windows.Forms.MessageBox.Show("Please run as administrator to perform this task.", "Insufficient Privileges.", System.Windows.Forms.MessageBoxButtons.OK);
             }
@@ -66,7 +66,7 @@ namespace olewoo_cs
 
                 Registry.ClassesRoot.DeleteSubKeyTree(regPath);
             }
-            catch (System.UnauthorizedAccessException)
+            catch (UnauthorizedAccessException)
             {
                 System.Windows.Forms.MessageBox.Show("Please run as administrator to perform this task.", "Insufficient Privileges.", System.Windows.Forms.MessageBoxButtons.OK);
             }

@@ -1255,7 +1255,7 @@ namespace olewoo_cs
 
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => false;
         public override List<ITlibNode> GenChildren() => new List<ITlibNode>();
-        public override void BuildIDLInto(IDLFormatter ih) => ih.AppendLine(this.Name + ";");
+        public override void BuildIDLInto(IDLFormatter ih) => ih.AppendLine(Name + ";");
     }
 
     class OWTypeDef : ITlibNode

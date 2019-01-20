@@ -36,12 +36,12 @@ namespace olewoo_cs
             _sort = SortType.Sorted_Numerically;
 
             InitializeComponent();
-            this.txtOleDescrPlain.ParentCtrl = this;
+            txtOleDescrPlain.ParentCtrl = this;
             tvLibDisp.ImageList = imglstTreeNodes;
-            this.Dock = DockStyle.Fill;
+            Dock = DockStyle.Fill;
 
             tvLibDisp.Nodes.Add(GenNodeTree(tlib, _nl));
-            this.txtOleDescrPlain.NodeLocator = _nl;
+            txtOleDescrPlain.NodeLocator = _nl;
             tvLibDisp.Nodes[0].Expand();
         }
 

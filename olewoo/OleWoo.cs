@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -77,7 +78,7 @@ namespace olewoo_cs
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             /* Dynamically populate the file item with the MRU */
-            this.fileToolStripMenuItem.DropDownItems.Clear();
+            fileToolStripMenuItem.DropDownItems.Clear();
 
             var tsis = new List<ToolStripItem>();
 
@@ -87,16 +88,16 @@ namespace olewoo_cs
             var tmiOpen = new ToolStripMenuItem();
             tmiOpen.Name = "openToolStripMenuItem";
             tmiOpen.ShortcutKeys = (Keys.Control | Keys.O);
-            tmiOpen.Size = new System.Drawing.Size(208, 22);
+            tmiOpen.Size = new Size(208, 22);
             tmiOpen.Text = "&Open Typelibrary";
-            tmiOpen.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            tmiOpen.Click += new EventHandler(openToolStripMenuItem_Click);
             tsis.Add(tmiOpen);
 
             VoidDelg addSep = () =>
             {
                 var tmiSep = new ToolStripSeparator();
                 tmiSep.Name = "toolStripMenuItem1";
-                tmiSep.Size = new System.Drawing.Size(205, 6);
+                tmiSep.Size = new Size(205, 6);
                 tsis.Add(tmiSep);
             };
 
@@ -110,19 +111,19 @@ namespace olewoo_cs
                 {
                     var tmiMru = new ToolStripMenuItem();
                     tmiMru.Tag = mrui;
-                    tmiMru.Size = new System.Drawing.Size(208, 22);
+                    tmiMru.Size = new Size(208, 22);
                     string label = mrui;
                     if (label.Length > 35) label = label.Substring(0,10) + "..."+ label.Substring(label.Length - 20);
                     tmiMru.Text = "&" + (idx++) + " " + label;
-                    tmiMru.Click += new System.EventHandler(this.openMRUItem_Click);
+                    tmiMru.Click += new EventHandler(openMRUItem_Click);
                     tsis.Add(tmiMru);
                 }
                 addSep();
                 {
                     var tmiMru = new ToolStripMenuItem();
-                    tmiMru.Size = new System.Drawing.Size(208, 22);
-                    tmiMru.Text = "&Clear Recent items list.";
-                    tmiMru.Click += new System.EventHandler(this.clearMRUItem_Click);
+                    tmiMru.Size = new Size(208, 22);
+                    tmiMru.Text = "&Clear Recent items list";
+                    tmiMru.Click += new EventHandler(clearMRUItem_Click);
                     tsis.Add(tmiMru);
                 }
                 addSep();
@@ -130,12 +131,12 @@ namespace olewoo_cs
 
             var tmiExit = new ToolStripMenuItem();
             tmiExit.Name = "exitToolStripMenuItem";
-            tmiExit.Size = new System.Drawing.Size(208, 22);
+            tmiExit.Size = new Size(208, 22);
             tmiExit.Text = "E&xit";
-            tmiExit.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            tmiExit.Click += new EventHandler(exitToolStripMenuItem_Click);
             tsis.Add(tmiExit);
 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(tsis.ToArray());
+            fileToolStripMenuItem.DropDownItems.AddRange(tsis.ToArray());
         }
 
         private void registerContextHandlerToolStripMenuItem_Click(object sender, EventArgs e)

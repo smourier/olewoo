@@ -111,7 +111,7 @@ namespace RichTextBoxLinks
 		{
 			// Otherwise, non-standard links get lost when user starts typing
 			// next to a non-standard link
-			this.DetectUrls = false;
+			DetectUrls = false;
 		}
 
 		[DefaultValue(false)]
@@ -125,7 +125,7 @@ namespace RichTextBoxLinks
         /// Insert a given text as a link into the RichTextBox at the current insert position.
         /// </summary>
         /// <param name="text">Text to be inserted</param>
-        public void InsertLink(string text) => InsertLink(text, this.SelectionStart);
+        public void InsertLink(string text) => InsertLink(text, SelectionStart);
 
         /// <summary>
         /// Insert a given text at a given position as a link. 
@@ -134,14 +134,14 @@ namespace RichTextBoxLinks
         /// <param name="position">Insert position</param>
         public void InsertLink(string text, int position)
 		{
-			if (position < 0 || position > this.Text.Length)
+			if (position < 0 || position > Text.Length)
 				throw new ArgumentOutOfRangeException("position");
 
-			this.SelectionStart = position;
-			this.SelectedText = text;
-			this.Select(position, text.Length);
-			this.SetSelectionLink(true);
-			this.Select(position + text.Length, 0);
+			SelectionStart = position;
+			SelectedText = text;
+			Select(position, text.Length);
+			SetSelectionLink(true);
+			Select(position + text.Length, 0);
 		}
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace RichTextBoxLinks
         /// </summary>
         /// <param name="text">Text to be inserted</param>
         /// <param name="hyperlink">Invisible hyperlink string to be inserted</param>
-        public void InsertLink(string text, string hyperlink) => InsertLink(text, hyperlink, this.SelectionStart);
+        public void InsertLink(string text, string hyperlink) => InsertLink(text, hyperlink, SelectionStart);
 
         /// <summary>
         /// Insert a given text at a given position as a link. The link text is followed by
@@ -166,14 +166,14 @@ namespace RichTextBoxLinks
         /// <param name="position">Insert position</param>
         public void InsertLink(string text, string hyperlink, int position)
 		{
-			if (position < 0 || position > this.Text.Length)
+			if (position < 0 || position > Text.Length)
 				throw new ArgumentOutOfRangeException("position");
 
-			this.SelectionStart = position;
-			this.SelectedRtf = @"{\rtf1\ansi "+text+@"\v #"+hyperlink+@"\v0}";
-			this.Select(position, text.Length + hyperlink.Length + 1);
-			this.SetSelectionLink(true);
-			this.Select(position + text.Length + hyperlink.Length + 1, 0);
+			SelectionStart = position;
+			SelectedRtf = @"{\rtf1\ansi "+text+@"\v #"+hyperlink+@"\v0}";
+			Select(position, text.Length + hyperlink.Length + 1);
+			SetSelectionLink(true);
+			Select(position + text.Length + hyperlink.Length + 1, 0);
 		}
 
         /// <summary>

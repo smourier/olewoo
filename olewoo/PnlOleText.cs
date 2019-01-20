@@ -25,11 +25,11 @@ namespace olewoo_cs
         {
             InitializeComponent();
             rtfOleText.SetTabs(4);
-            _fo = new RichIDLFormatter(this.rtfOleText);
+            _fo = new RichIDLFormatter(rtfOleText);
             _history = new LinkedList<TreeNode>();
-            rtfOleText.LinkClicked += this.LinkClicked;
-            rtfOleText.KeyDown += this.txtOleText_KeyDown;
-            rtfOleText.KeyPress += this.txtOleText_KeyPress;
+            rtfOleText.LinkClicked += LinkClicked;
+            rtfOleText.KeyDown += txtOleText_KeyDown;
+            rtfOleText.KeyPress += txtOleText_KeyPress;
         }
         public PnlOleText(SetTextDelg s) : this() // makes the c++ me weep.
         {
