@@ -1,4 +1,4 @@
-﻿namespace olewoo_cs
+﻿namespace olewoo
 {
     partial class PnlOleText
     {

@@ -1,4 +1,4 @@
-﻿namespace olewoo_cs
+﻿namespace olewoo
 {
     partial class wooctrl
     {
@@ -46,7 +46,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pnlDisplayContainer = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtOleDescrPlain = new olewoo_cs.PnlTextOrTabbed();
+            this.txtOleDescrPlain = new olewoo.PnlTextOrTabbed();
             this.pnlSearchAll = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnAddNodeTabl = new System.Windows.Forms.Button();

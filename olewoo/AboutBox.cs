@@ -8,7 +8,7 @@
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace olewoo_cs
+namespace olewoo
 {
     partial class AboutBox : Form
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Win32;
 
-namespace olewoo_cs
+namespace olewoo
 {
     class MRUList
     {
@@ -50,7 +50,9 @@ namespace olewoo_cs
             {
                 object o = _mrufiles.GetValue("MruFile" + i);
                 string s = o as string;
-                if (string.IsNullOrEmpty(s)) return;
+                if (string.IsNullOrEmpty(s))
+                    return;
+
                 _data.AddLast(s);
                 _uqitems[s] = true;
             }
@@ -77,7 +79,10 @@ namespace olewoo_cs
         private RegistryKey GetRegKey(string key, RegistryKey basekey)
         {
             RegistryKey nkey = basekey.OpenSubKey(key, true);
-            if (nkey == null) nkey = basekey.CreateSubKey(key);
+            if (nkey == null)
+            {
+                nkey = basekey.CreateSubKey(key);
+            }
             return nkey;
         }
     }

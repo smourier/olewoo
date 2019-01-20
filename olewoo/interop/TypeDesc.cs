@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
 namespace olewoo.interop
@@ -31,6 +32,19 @@ namespace olewoo.interop
                     pd = Marshal.PtrToStructure<System.Runtime.InteropServices.ComTypes.TYPEDESC>(_desc.lpValue);
                     new TypeDesc(pd).ComTypeNameAsString(ti, ift);
                     ift.AddString(")");
+                    break;
+
+                case VarEnum.VT_CARRAY:
+                    var ad = Marshal.PtrToStructure<ARRAYDESC>(_desc.lpValue);
+                    for (int i = 0; i < ad.cDims; i++)
+                    {
+                        var bounds = Marshal.PtrToStructure<SAFEARRAYBOUND>(ad.rgbounds + Marshal.SizeOf<SAFEARRAYBOUND>() * i);
+                        ift.AddString("[");
+                        ift.AddString(bounds.lLbound.ToString());
+                        ift.AddString("...");
+                        ift.AddString((bounds.cElements + bounds.lLbound - 1).ToString());
+                        ift.AddString("]");
+                    }
                     break;
 
                 case VarEnum.VT_USERDEFINED:
@@ -173,9 +187,24 @@ namespace olewoo.interop
                     break;
 
                 default:
-                    ift.AddString("!!!" + vr + "!!!");
+                    ift.AddString("!!! " + vr + " !!!");
                     break;
             }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct ARRAYDESC
+        {
+            public System.Runtime.InteropServices.ComTypes.TYPEDESC tdescElem;
+            public short cDims;
+            public IntPtr rgbounds;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct SAFEARRAYBOUND
+        {
+            public int cElements;
+            public int lLbound;
         }
     }
 }

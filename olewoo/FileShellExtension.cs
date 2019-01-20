@@ -10,7 +10,7 @@ using System;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-namespace olewoo_cs
+namespace olewoo
 {
     static class FileShellExtension
     {

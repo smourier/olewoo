@@ -1,4 +1,4 @@
-﻿namespace olewoo_cs
+﻿namespace olewoo
 {
     partial class OleWoo
     {
@@ -41,7 +41,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.imglstTreeNodes = new System.Windows.Forms.ImageList(this.components);
             this.imgListMisc = new System.Windows.Forms.ImageList(this.components);
-            this.tcTypeLibs = new olewoo_cs.TabControlCB();
+            this.tcTypeLibs = new olewoo.TabControlCB();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,7 +77,7 @@
             this.registerContextHandlerToolStripMenuItem,
             this.unregisterContextHandlerToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // registerContextHandlerToolStripMenuItem
@@ -170,6 +170,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "OleWoo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OleWoo";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

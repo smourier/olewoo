@@ -9,7 +9,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
-namespace olewoo_cs
+namespace olewoo
 {
     static class NativeMethods
     {

@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace olewoo_cs
+namespace olewoo
 {
     delegate void EndUpdateDelg();
 

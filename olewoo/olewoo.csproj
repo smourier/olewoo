@@ -58,7 +58,10 @@
       <DependentUpon>FindDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiMisc.cs" />
-    <Compile Include="IDLHelper.cs" />
+    <Compile Include="IClearUp.cs" />
+    <Compile Include="IDLFormatter.cs" />
+    <Compile Include="IDLGrabber.cs" />
+    <Compile Include="IDLHelperTab.cs" />
     <Compile Include="interop\CUSTDATAITEM.cs" />
     <Compile Include="interop\CustomDatas.cs" />
     <Compile Include="interop\ElemDesc.cs" />
@@ -69,6 +72,8 @@
     <Compile Include="interop\TypeDesc.cs" />
     <Compile Include="interop\TypeLibAttr.cs" />
     <Compile Include="interop\VarDesc.cs" />
+    <Compile Include="ITlibNode.cs" />
+    <Compile Include="ITypeInfoXtra.cs" />
     <Compile Include="MRUList.cs" />
     <Compile Include="OleWoo.cs">
       <SubType>Form</SubType>
@@ -76,6 +81,23 @@
     <Compile Include="OleWoo.designer.cs">
       <DependentUpon>OleWoo.cs</DependentUpon>
     </Compile>
+    <Compile Include="OWChildrenIndirect.cs" />
+    <Compile Include="OWCoClass.cs" />
+    <Compile Include="OWDispInterface.cs" />
+    <Compile Include="OWDispInterfaceInheritedInterfaces.cs" />
+    <Compile Include="OWDispProperty.cs" />
+    <Compile Include="OWEnum.cs" />
+    <Compile Include="OWEnumValue.cs" />
+    <Compile Include="OWIDispatchMethods.cs" />
+    <Compile Include="OWIDispatchProperties.cs" />
+    <Compile Include="OWInheritedInterfaces.cs" />
+    <Compile Include="OWInterface.cs" />
+    <Compile Include="OWMethod.cs" />
+    <Compile Include="OWModule.cs" />
+    <Compile Include="OWModuleConst.cs" />
+    <Compile Include="OWRecord.cs" />
+    <Compile Include="OWRecordMember.cs" />
+    <Compile Include="OWTypeDef.cs" />
     <Compile Include="OWTypeLib.cs" />
     <Compile Include="PnlOleText.cs">
       <SubType>UserControl</SubType>

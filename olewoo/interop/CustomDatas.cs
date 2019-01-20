@@ -25,7 +25,6 @@ namespace olewoo.interop
         [DllImport("oleaut32")]
         private static extern void ClearCustData(IntPtr ptr);
 
-
         [StructLayout(LayoutKind.Sequential)]
         private struct CUSTDATA
         {

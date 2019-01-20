@@ -8,7 +8,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace olewoo_cs
+namespace olewoo
 {
     public partial class FindDialog : Form
     {

@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace olewoo_cs
+namespace olewoo
 {
     public partial class TabControlCB : TabControl
     {

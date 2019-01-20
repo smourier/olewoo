@@ -6,16 +6,24 @@ namespace olewoo.interop
 {
     public class TypeLibAttr
     {
-        private TYPELIBATTR _attr;
-
         public TypeLibAttr(ITypeLib tl)
         {
             tl.GetLibAttr(out var ptr);
-            _attr = PtrToStructure<TYPELIBATTR>(ptr);
+            var attr = PtrToStructure<TYPELIBATTR>(ptr);
+            guid = attr.guid;
+            wMajorVerNum = attr.wMajorVerNum;
+            wMinorVerNum = attr.wMinorVerNum;
+            lcid = attr.lcid;
+            syskind = attr.syskind;
+            wLibFlags = attr.wLibFlags;
+            tl.ReleaseTLibAttr(ptr);
         }
 
-        public Guid guid => _attr.guid;
-        public short wMajorVerNum => _attr.wMajorVerNum;
-        public short wMinorVerNum => _attr.wMinorVerNum;
+        public Guid guid { get; }
+        public int lcid { get; }
+        public SYSKIND syskind { get; }
+        public short wMajorVerNum { get; }
+        public short wMinorVerNum { get; }
+        public LIBFLAGS wLibFlags { get; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace olewoo_cs
+﻿namespace olewoo
 {
     partial class PnlTextOrTabbed
     {
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
 //            this.pnlOleText = new System.Windows.Forms.TabControl();
-            this.pnlOleText = new olewoo_cs.TabControlCB();
-            this.txtOleText = new olewoo_cs.PnlOleText();
+            this.pnlOleText = new olewoo.TabControlCB();
+            this.txtOleText = new olewoo.PnlOleText();
             this.SuspendLayout();
             // 
             // pnlOleText

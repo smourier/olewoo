@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace olewoo_cs
+namespace olewoo
 {
     public partial class wooctrl : UserControl
     {

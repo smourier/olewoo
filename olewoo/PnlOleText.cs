@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace olewoo_cs
+namespace olewoo
 {
     public partial class PnlOleText : UserControl
     {
