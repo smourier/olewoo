@@ -4,14 +4,13 @@ namespace olewoo.interop
 {
     public class ElemDesc
     {
-        private ELEMDESC _desc;
-
         public ElemDesc(ELEMDESC desc)
         {
-            _desc = desc;
+            tdesc = new TypeDesc(desc.tdesc);
+            paramdesc = new ParamDesc(desc.desc.paramdesc);
         }
 
-        public TypeDesc tdesc => new TypeDesc(_desc.tdesc);
-        public ParamDesc paramdesc => new ParamDesc(_desc.desc.paramdesc);
+        public TypeDesc tdesc { get; }
+        public ParamDesc paramdesc { get; }
     }
 }

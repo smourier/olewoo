@@ -7,20 +7,20 @@ namespace olewoo.interop
 {
     public class CustomDatas
     {
-        private readonly List<CUSTDATAITEM> _items = new List<CUSTDATAITEM>();
-
         public CustomDatas(ITypeLib2 tl)
         {
             var ptr = Marshal.AllocCoTaskMem(Marshal.SizeOf<CUSTDATA>());
             tl.GetAllCustData(ptr);
             var cd = Marshal.PtrToStructure<CUSTDATA>(ptr);
+            var items = new List<CUSTDATAITEM>();
             for (int i = 0; i < cd.cCustData; i++)
             {
             }
+            Items = items.ToArray();
             ClearCustData(ptr);
         }
 
-        public IReadOnlyList<CUSTDATAITEM> Items => _items;
+        public CUSTDATAITEM[] Items { get; }
 
         [DllImport("oleaut32")]
         private static extern void ClearCustData(IntPtr ptr);

@@ -6,191 +6,291 @@ namespace olewoo.interop
 {
     public class TypeDesc
     {
-        private System.Runtime.InteropServices.ComTypes.TYPEDESC _desc;
+        private Action<ITypeInfo, IDLFormatter> _action;
 
         public TypeDesc(System.Runtime.InteropServices.ComTypes.TYPEDESC desc)
         {
-            _desc = desc;
-        }
-
-        public int hreftype => (int)(ulong)_desc.lpValue;
-
-        public void ComTypeNameAsString(ITypeInfo ti, IDLFormatter_iop ift)
-        {
-            var vr = (VarEnum)_desc.vt;
+            hreftype = (int)(ulong)desc.lpValue;
+            var vr = (VarEnum)desc.vt;
             System.Runtime.InteropServices.ComTypes.TYPEDESC pd;
             switch (vr)
             {
                 case VarEnum.VT_PTR:
-                    pd = Marshal.PtrToStructure<System.Runtime.InteropServices.ComTypes.TYPEDESC>(_desc.lpValue);
-                    new TypeDesc(pd).ComTypeNameAsString(ti, ift);
-                    ift.AddString("*");
+                    pd = Marshal.PtrToStructure<System.Runtime.InteropServices.ComTypes.TYPEDESC>(desc.lpValue);
+                    _action = (ti, ift) =>
+                    {
+                        new TypeDesc(pd).ComTypeNameAsString(ti, ift);
+                        ift.AddString("*");
+                    };
                     break;
 
                 case VarEnum.VT_SAFEARRAY:
-                    ift.AddString("SAFEARRAY(");
-                    pd = Marshal.PtrToStructure<System.Runtime.InteropServices.ComTypes.TYPEDESC>(_desc.lpValue);
-                    new TypeDesc(pd).ComTypeNameAsString(ti, ift);
-                    ift.AddString(")");
+                    pd = Marshal.PtrToStructure<System.Runtime.InteropServices.ComTypes.TYPEDESC>(desc.lpValue);
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("SAFEARRAY(");
+                        new TypeDesc(pd).ComTypeNameAsString(ti, ift);
+                        ift.AddString(")");
+                    };
                     break;
 
                 case VarEnum.VT_CARRAY:
-                    var ad = Marshal.PtrToStructure<ARRAYDESC>(_desc.lpValue);
-                    for (int i = 0; i < ad.cDims; i++)
+                    var ad = Marshal.PtrToStructure<ARRAYDESC>(desc.lpValue);
+                    _action = (ti, ift) =>
                     {
-                        var bounds = Marshal.PtrToStructure<SAFEARRAYBOUND>(ad.rgbounds + Marshal.SizeOf<SAFEARRAYBOUND>() * i);
-                        ift.AddString("[");
-                        ift.AddString(bounds.lLbound.ToString());
-                        ift.AddString("...");
-                        ift.AddString((bounds.cElements + bounds.lLbound - 1).ToString());
-                        ift.AddString("]");
-                    }
+                        for (int i = 0; i < ad.cDims; i++)
+                        {
+                            var bounds = Marshal.PtrToStructure<SAFEARRAYBOUND>(ad.rgbounds + Marshal.SizeOf<SAFEARRAYBOUND>() * i);
+                            ift.AddString("[");
+                            ift.AddString(bounds.lLbound.ToString());
+                            ift.AddString("...");
+                            ift.AddString((bounds.cElements + bounds.lLbound - 1).ToString());
+                            ift.AddString("]");
+                        }
+                    };
                     break;
 
                 case VarEnum.VT_USERDEFINED:
-                    ITypeInfo cti = null;
-                    try
+                    _action = (ti, ift) =>
                     {
-                        ti.GetRefTypeInfo(hreftype, out cti);
-                    }
-                    catch
-                    {
-                    }
+                        ITypeInfo cti = null;
+                        try
+                        {
+                            ti.GetRefTypeInfo(hreftype, out cti);
+                        }
+                        catch
+                        {
+                        }
 
-                    string name;
-                    if (cti != null)
-                    {
-                        cti.GetDocumentation(-1, out name, out var docSrting, out var ctx, out var helpFile);
-                    }
-                    else
-                    {
-                        name = "???";
-                    }
+                        string name;
+                        if (cti != null)
+                        {
+                            cti.GetDocumentation(-1, out name, out var docSrting, out var ctx, out var helpFile);
+                        }
+                        else
+                        {
+                            name = "???";
+                        }
 
-                    ift.AddLink(name, "i");
+                        ift.AddLink(name, "i");
+                    };
                     break;
 
                 case VarEnum.VT_I2:
-                    ift.AddString("short");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("short");
+                    };
                     break;
 
                 case VarEnum.VT_I4:
-                    ift.AddString("long");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("long");
+                    };
                     break;
 
                 case VarEnum.VT_R4:
-                    ift.AddString("float");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("float");
+                    };
                     break;
 
                 case VarEnum.VT_R8:
-                    ift.AddString("double");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("double");
+                    };
                     break;
 
                 case VarEnum.VT_CY:
-                    ift.AddString("CY");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("CY");
+                    };
                     break;
 
                 case VarEnum.VT_DATE:
-                    ift.AddString("DATE");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("DATE");
+                    };
                     break;
 
                 case VarEnum.VT_BSTR:
-                    ift.AddString("BSTR");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("BSTR");
+                    };
                     break;
 
                 case VarEnum.VT_DISPATCH:
-                    ift.AddString("IDispatch*");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("IDispatch*");
+                    };
                     break;
 
                 case VarEnum.VT_ERROR:
-                    ift.AddString("SCODE");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("SCODE");
+                    };
                     break;
 
                 case VarEnum.VT_BOOL:
-                    ift.AddString("VARIANT_BOOL");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("VARIANT_BOOL");
+                    };
                     break;
 
                 case VarEnum.VT_VARIANT:
-                    ift.AddString("VARIANT");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("VARIANT");
+                    };
                     break;
 
                 case VarEnum.VT_UNKNOWN:
-                    ift.AddString("IUnknown*");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("IUnknown*");
+                    };
                     break;
 
                 case VarEnum.VT_UI1:
-                    ift.AddString("BYTE");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("BYTE");
+                    };
                     break;
 
                 case VarEnum.VT_DECIMAL:
-                    ift.AddString("DECIMAL");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("DECIMAL");
+                    };
                     break;
 
                 case VarEnum.VT_I1:
-                    ift.AddString("char");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("char");
+                    };
                     break;
 
                 case VarEnum.VT_UI2:
-                    ift.AddString("unsigned short");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("unsigned short");
+                    };
                     break;
 
                 case VarEnum.VT_UI4:
-                    ift.AddString("unsigned long");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("unsigned long");
+                    };
                     break;
 
                 case VarEnum.VT_I8:
-                    ift.AddString("__int64");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("__int64");
+                    };
                     break;
 
                 case VarEnum.VT_UI8:
-                    ift.AddString("unsigned __int64");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("unsigned __int64");
+                    };
                     break;
 
                 case VarEnum.VT_INT:
-                    ift.AddString("int");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("int");
+                    };
                     break;
 
                 case VarEnum.VT_UINT:
-                    ift.AddString("unsigned int");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("unsigned int");
+                    };
                     break;
 
                 case VarEnum.VT_HRESULT:
-                    ift.AddString("HRESULT");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("HRESULT");
+                    };
                     break;
 
                 case VarEnum.VT_VOID:
-                    ift.AddString("void");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("void");
+                    };
                     break;
 
                 case VarEnum.VT_LPSTR:
-                    ift.AddString("LPSTR");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("LPSTR");
+                    };
                     break;
 
                 case VarEnum.VT_LPWSTR:
-                    ift.AddString("LPWSTR");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("LPWSTR");
+                    };
                     break;
 
                 case VarEnum.VT_FILETIME:
-                    ift.AddString("FILETIME");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("FILETIME");
+                    };
                     break;
 
                 case VarEnum.VT_STREAM:
-                    ift.AddString("IStream*");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("IStream*");
+                    };
                     break;
 
                 case VarEnum.VT_STORAGE:
-                    ift.AddString("IStorage*");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("IStorage*");
+                    };
                     break;
 
                 case VarEnum.VT_CLSID:
-                    ift.AddString("CLSID");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("CLSID");
+                    };
                     break;
 
                 default:
-                    ift.AddString("!!! " + vr + " !!!");
+                    _action = (ti, ift) =>
+                    {
+                        ift.AddString("!!! " + vr + " !!!");
+                    };
                     break;
             }
         }
+
+        public int hreftype { get; }
+
+        public void ComTypeNameAsString(ITypeInfo ti, IDLFormatter ift) => _action(ti, ift);
 
         [StructLayout(LayoutKind.Sequential)]
         private struct ARRAYDESC

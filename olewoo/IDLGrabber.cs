@@ -9,7 +9,7 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    class IDLGrabber : IDLFormatter_iop
+    class IDLGrabber : interop.IDLFormatter
     {
         string _s;
         public override void AddLink(string s, string s2) => _s += s;

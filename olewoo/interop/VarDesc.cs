@@ -5,17 +5,21 @@ namespace olewoo.interop
 {
     public class VarDesc
     {
-        private VARDESC _desc;
-
         public VarDesc(ITypeInfo ti, int idx)
         {
             ti.GetVarDesc(idx, out var ptr);
-            _desc = PtrToStructure<VARDESC>(ptr);
+            var desc = PtrToStructure<VARDESC>(ptr);
+            memid = desc.memid;
+            elemDescVar = new ElemDesc(desc.elemdescVar);
+            if (desc.varkind == VARKIND.VAR_CONST)
+            {
+                varValue = GetObjectForNativeVariant(desc.desc.lpvarValue);
+            }
             ti.ReleaseVarDesc(ptr);
         }
 
-        public int memid => _desc.memid;
-        public ElemDesc elemDescVar => new ElemDesc(_desc.elemdescVar);
-        public object varValue => GetObjectForNativeVariant(_desc.desc.lpvarValue);
+        public int memid { get; }
+        public ElemDesc elemDescVar { get; }
+        public object varValue { get; }
     }
 }

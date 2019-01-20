@@ -5,6 +5,7 @@
  * CopyLeft, but please credit.
  *
  */
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -23,7 +24,7 @@ namespace olewoo
             textBoxDescription.Text = AssemblyDescription;
         }
 
-        public string AssemblyTitle
+        public static string AssemblyTitle
         {
             get
             {
@@ -34,13 +35,13 @@ namespace olewoo
                     if (!string.IsNullOrWhiteSpace(titleAttribute.Title))
                         return titleAttribute.Title;
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
-        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        public string AssemblyDescription
+        public static string AssemblyDescription
         {
             get
             {
@@ -52,7 +53,7 @@ namespace olewoo
             }
         }
 
-        public string AssemblyProduct
+        public static string AssemblyProduct
         {
             get
             {
@@ -64,7 +65,7 @@ namespace olewoo
             }
         }
 
-        public string AssemblyCopyright
+        public static string AssemblyCopyright
         {
             get
             {
@@ -76,7 +77,7 @@ namespace olewoo
             }
         }
 
-        public string AssemblyCompany
+        public static string AssemblyCompany
         {
             get
             {

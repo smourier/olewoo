@@ -110,14 +110,18 @@ namespace olewoo
             }
 
             AddHelpStringAndContext(lprops, help, context);
-            ih.AppendLine("[" + string.Join(", ", lprops.ToArray()) + "] ");
+
+            if (lprops.Count > 0)
+            {
+                ih.AppendLine("[" + string.Join(", ", lprops.ToArray()) + "] ");
+            }
 
             // Prototype in a different line.
             ElemDesc ed = _fd.elemdescFunc;
             GenPt paramtextgen = null;
             ElemDesc elast = null;
             bool bRetvalPresent = false;
-            if (_fd.cParams > 0)
+            if (_fd.elemdescParams.Length > 0)
             {
                 var names = _fd.GetNames(_ti);
                 var edps = _fd.elemdescParams;
@@ -131,7 +135,7 @@ namespace olewoo
                     bRetvalPresent = true;
                 }
 
-                int maxCnt = (bAsDispatch && bRetvalPresent) ? _fd.cParams - 1 : _fd.cParams;
+                int maxCnt = (bAsDispatch && bRetvalPresent) ? _fd.elemdescParams.Length - 1 : _fd.elemdescParams.Length;
 
                 paramtextgen = x =>
                     {
@@ -151,7 +155,7 @@ namespace olewoo
             }
 
             ih.AddString(" " + _name);
-            switch (_fd.cParams)
+            switch (_fd.elemdescParams.Length)
             {
                 case 0:
                     ih.AppendLine("();");
@@ -167,10 +171,10 @@ namespace olewoo
                     ih.AppendLine("(");
                     using (new IDLHelperTab(ih))
                     {
-                        for (int y = 0; y < _fd.cParams; ++y)
+                        for (int y = 0; y < _fd.elemdescParams.Length; ++y)
                         {
                             paramtextgen(y);
-                            ih.AppendLine(y == _fd.cParams - 1 ? "" : ",");
+                            ih.AppendLine(y == _fd.elemdescParams.Length - 1 ? "" : ",");
                         }
                     }
                     ih.AppendLine(");");

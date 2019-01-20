@@ -144,8 +144,8 @@ namespace olewoo
 
         public static string[] GetNames(this FuncDesc fd, ITypeInfo ti)
         {
-            var names = new string[fd.cParams + 1];
-            ti.GetNames(fd.memid, names, fd.cParams + 1, out int pcNames);
+            var names = new string[fd.elemdescParams.Length + 1];
+            ti.GetNames(fd.memid, names, fd.elemdescParams.Length + 1, out int pcNames);
             return names;
         }
     }

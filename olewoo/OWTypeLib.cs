@@ -59,7 +59,7 @@ namespace olewoo
             // interfaces.
             // dispinterfaces aren't shown seperately.
 
-            ih.AppendLine("// Generated .IDL file (by OleWoo)");
+            ih.AppendLine("// Generated .IDL file (by OleWoo V" + AboutBox.AssemblyVersion + ")");
             ih.AppendLine("[");
             var liba = new List<string>();
             var tla = new TypeLibAttr(_tlib);

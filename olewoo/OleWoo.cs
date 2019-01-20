@@ -84,7 +84,7 @@ namespace olewoo
             tmiOpen.Name = "openToolStripMenuItem";
             tmiOpen.ShortcutKeys = (Keys.Control | Keys.O);
             tmiOpen.Size = new Size(208, 22);
-            tmiOpen.Text = "&Open Typelibrary";
+            tmiOpen.Text = "&Open Type Library...";
             tmiOpen.Click += new EventHandler(OpenToolStripMenuItem_Click);
             tsis.Add(tmiOpen);
 

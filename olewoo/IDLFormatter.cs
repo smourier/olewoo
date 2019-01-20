@@ -9,7 +9,7 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    public abstract class IDLFormatter : IDLFormatter_iop
+    public abstract class IDLFormatter : interop.IDLFormatter
     {
         protected int _tabdepth;
 

@@ -6,24 +6,31 @@ namespace olewoo.interop
 {
     public class TypeAttr
     {
-        private TYPEATTR _attr;
-
         public TypeAttr(ITypeInfo ti)
         {
             ti.GetTypeAttr(out var ptr);
-            _attr = PtrToStructure<TYPEATTR>(ptr);
+            var attr = PtrToStructure<TYPEATTR>(ptr);
+            typekind = attr.typekind;
+            wTypeFlags = attr.wTypeFlags;
+            cImplTypes = attr.cImplTypes;
+            cFuncs = attr.cFuncs;
+            cVars = attr.cVars;
+            tdescAlias = new TypeDesc(attr.tdescAlias);
+            guid = attr.guid;
+            wMajorVerNum = attr.wMajorVerNum;
+            wMinorVerNum = attr.wMinorVerNum;
             ti.ReleaseTypeAttr(ptr);
         }
 
-        public TYPEKIND typekind => _attr.typekind;
-        public TYPEFLAGS wTypeFlags => _attr.wTypeFlags;
-        public int cImplTypes => _attr.cImplTypes;
-        public int cFuncs => _attr.cFuncs;
-        public int cVars => _attr.cVars;
-        public TypeDesc tdescAlias => new TypeDesc(_attr.tdescAlias);
-        public Guid guid => _attr.guid;
-        public short wMajorVerNum => _attr.wMajorVerNum;
-        public short wMinorVerNum => _attr.wMinorVerNum;
+        public TYPEKIND typekind { get; }
+        public TYPEFLAGS wTypeFlags { get; }
+        public int cImplTypes { get; }
+        public int cFuncs { get; }
+        public int cVars { get; }
+        public TypeDesc tdescAlias { get; }
+        public Guid guid { get; }
+        public short wMajorVerNum { get; }
+        public short wMinorVerNum { get; }
 
         public string GetDllEntry(ITypeInfo ti, INVOKEKIND invKind, int memid)
         {

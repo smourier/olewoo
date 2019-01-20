@@ -7,20 +7,24 @@ namespace olewoo.interop
 {
     public class FuncDesc
     {
-        private readonly FUNCDESC _desc;
-
         public FuncDesc(ITypeInfo ti, int idx)
         {
             ti.GetFuncDesc(idx, out var ptr);
-            _desc = PtrToStructure<FUNCDESC>(ptr);
+            var desc = PtrToStructure<FUNCDESC>(ptr);
 
-            if (_desc.cParamsOpt != 0)
+            if (desc.cParamsOpt != 0)
                 throw new NotSupportedException();
 
+            memid = desc.memid;
+            invkind = desc.invkind;
+            callconv = desc.callconv;
+            wFuncFlags = (FUNCFLAGS)desc.wFuncFlags;
+            elemdescFunc = new ElemDesc(desc.elemdescFunc);
+
             var paramsList = new List<ElemDesc>();
-            for (int i = 0; i < _desc.cParams; i++)
+            for (int i = 0; i < desc.cParams; i++)
             {
-                var sed = PtrToStructure<ELEMDESC>(_desc.lprgelemdescParam + i * SizeOf<ELEMDESC>());
+                var sed = PtrToStructure<ELEMDESC>(desc.lprgelemdescParam + i * SizeOf<ELEMDESC>());
                 var ed = new ElemDesc(sed);
                 paramsList.Add(ed);
             }
@@ -29,13 +33,11 @@ namespace olewoo.interop
             ti.ReleaseFuncDesc(ptr);
         }
 
-        public int memid => _desc.memid;
-        public INVOKEKIND invkind => _desc.invkind;
-        public int cParams => _desc.cParams;
-        public CALLCONV callconv => _desc.callconv;
-        public FUNCFLAGS wFuncFlags => (FUNCFLAGS)_desc.wFuncFlags;
-        public ElemDesc elemdescFunc => new ElemDesc(_desc.elemdescFunc);
-
+        public int memid { get; }
+        public INVOKEKIND invkind { get; }
+        public CALLCONV callconv { get; }
+        public FUNCFLAGS wFuncFlags { get; }
+        public ElemDesc elemdescFunc { get; }
         public ElemDesc[] elemdescParams { get; }
     }
 }

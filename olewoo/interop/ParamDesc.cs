@@ -1,27 +1,23 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using static System.Runtime.InteropServices.Marshal;
 
 namespace olewoo.interop
 {
     public class ParamDesc
     {
-        private System.Runtime.InteropServices.ComTypes.PARAMDESC _desc;
-
         public ParamDesc(System.Runtime.InteropServices.ComTypes.PARAMDESC desc)
         {
-            _desc = desc;
-        }
-
-        public System.Runtime.InteropServices.ComTypes.PARAMFLAG wParamFlags => _desc.wParamFlags;
-
-        public object varDefaultValue
-        {
-            get
+            wParamFlags = desc.wParamFlags;
+            if (desc.lpVarValue != IntPtr.Zero)
             {
-                var ex = PtrToStructure<PARAMDESCEX>(_desc.lpVarValue);
-                return ex.varDefaultValue;
+                var ex = PtrToStructure<PARAMDESCEX>(desc.lpVarValue);
+                varDefaultValue = ex.varDefaultValue;
             }
         }
+
+        public System.Runtime.InteropServices.ComTypes.PARAMFLAG wParamFlags { get; }
+        public object varDefaultValue { get; }
 
         [StructLayout(LayoutKind.Sequential)]
         private struct PARAMDESCEX

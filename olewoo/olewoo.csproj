@@ -66,7 +66,7 @@
     <Compile Include="interop\CustomDatas.cs" />
     <Compile Include="interop\ElemDesc.cs" />
     <Compile Include="interop\FuncDesc.cs" />
-    <Compile Include="interop\IDLFormatter_iop.cs" />
+    <Compile Include="interop\IDLFormatter.cs" />
     <Compile Include="interop\ParamDesc.cs" />
     <Compile Include="interop\TypeAttr.cs" />
     <Compile Include="interop\TypeDesc.cs" />
