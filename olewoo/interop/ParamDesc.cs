@@ -9,7 +9,8 @@ namespace olewoo.interop
         public ParamDesc(System.Runtime.InteropServices.ComTypes.PARAMDESC desc)
         {
             wParamFlags = desc.wParamFlags;
-            if (desc.lpVarValue != IntPtr.Zero)
+            if (desc.wParamFlags.HasFlag(System.Runtime.InteropServices.ComTypes.PARAMFLAG.PARAMFLAG_FHASDEFAULT) ||
+                desc.wParamFlags.HasFlag(System.Runtime.InteropServices.ComTypes.PARAMFLAG.PARAMFLAG_FOPT))
             {
                 var ex = PtrToStructure<PARAMDESCEX>(desc.lpVarValue);
                 varDefaultValue = ex.varDefaultValue;
@@ -23,7 +24,7 @@ namespace olewoo.interop
         private struct PARAMDESCEX
         {
             public int cBytes;
-            public object varDefaultValue;
+            public VARIANT varDefaultValue;
         }
     }
 }

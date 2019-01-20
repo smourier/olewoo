@@ -72,7 +72,8 @@
     <Compile Include="interop\TypeDesc.cs" />
     <Compile Include="interop\TypeLibAttr.cs" />
     <Compile Include="interop\VarDesc.cs" />
-    <Compile Include="ITlibNode.cs" />
+    <Compile Include="interop\VARIANT.cs" />
+    <Compile Include="TlibNode.cs" />
     <Compile Include="ITypeInfoXtra.cs" />
     <Compile Include="MRUList.cs" />
     <Compile Include="OleWoo.cs">

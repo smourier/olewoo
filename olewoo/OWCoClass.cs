@@ -11,14 +11,14 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    class OWCoClass : ITlibNode
+    class OWCoClass : TlibNode
     {
-        readonly ITlibNode _parent;
+        readonly TlibNode _parent;
         readonly string _name;
         TypeAttr _ta;
         ITypeInfo _ti;
 
-        public OWCoClass(ITlibNode parent, ITypeInfo ti, TypeAttr ta)
+        public OWCoClass(TlibNode parent, ITypeInfo ti, TypeAttr ta)
         {
             _parent = parent;
             _name = ti.GetName();
@@ -31,11 +31,11 @@ namespace olewoo
         public override string ShortName => _name;
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => true;
         public override int ImageIndex => (int)ImageIndices.idx_coclass;
-        public override ITlibNode Parent => _parent;
+        public override TlibNode Parent => _parent;
 
-        public override List<ITlibNode> GenChildren()
+        public override List<TlibNode> GenChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             for (int x = 0; x < _ta.cImplTypes; ++x)
             {
                 _ti.GetRefTypeOfImplType(x, out int href);

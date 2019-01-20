@@ -47,21 +47,16 @@ namespace olewoo
 
         public ImageList ImageList => _iml;
 
-        /*
-         * Note that this generates redundant tree nodes, i.e. many definitions of (eg) IUnknown
-         * this is because Trees don't have support for child sharing. (how would the parent property work? :)
-         */
-        private TreeNode GenNodeTree(ITlibNode tln, NodeLocator nl)
+        // Note that this generates redundant tree nodes, i.e. many definitions of (eg) IUnknown
+        // this is because Trees don't have support for child sharing. (how would the parent property work? :)
+        private TreeNode GenNodeTree(TlibNode tln, NodeLocator nl)
         {
-            var tn = new TreeNode(tln.Name, tln.ImageIndex, 
-                (int)ITlibNode.ImageIndices.idx_selected, 
-                tln.Children.ConvertAll(x => GenNodeTree(x,nl)).ToArray());
+            var children = tln.Children.ConvertAll(x => GenNodeTree(x, nl)).ToArray();
+            var tn = new TreeNode(tln.Name, tln.ImageIndex, (int)TlibNode.ImageIndices.idx_selected, children);
             tn.Tag = tln;
             nl.Add(tn);
             return tn;
         }
-
-        private void TvLibDisp_AfterSelect(object sender, TreeViewEventArgs e) => txtOleDescrPlain.SetCurrentNode(e.Node);
 
         private void ClearMatches()
         {
@@ -69,11 +64,8 @@ namespace olewoo
             lstNodeMatches.Items.Clear();
         }
 
-        /*
-         * Search through the registered names for the tree nodes.
-         * 
-         * When we hit one, select that node.
-         */
+        // Search through the registered names for the tree nodes.
+        // When we hit one, select that node.
         private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
             string text = txtSearch.Text;
@@ -108,15 +100,17 @@ namespace olewoo
             tvLibDisp.ActivateNode(nn.TreeNode);
         }
 
-        private void BtnHideMatches_Click(object sender, EventArgs e) => txtSearch.Text = "";
+        private void TvLibDisp_AfterSelect(object sender, TreeViewEventArgs e) => txtOleDescrPlain.SetCurrentNode(e.Node);
+        private void BtnHideMatches_Click(object sender, EventArgs e) => txtSearch.Text = string.Empty;
         private void BtnAddNodeTabl_Click(object sender, EventArgs e) => txtOleDescrPlain.AddTab(tvLibDisp.SelectedNode);
         public void SelectTreeNode(TreeNode tn) => tvLibDisp.ActivateNode(tn);
 
-        delegate int CompDelg(ITlibNode x, ITlibNode y);
+        delegate int CompDelg(TlibNode x, TlibNode y);
 
         class OleNodeComparer : IComparer<TreeNode>
         {
             readonly CompDelg _cd;
+
             public OleNodeComparer(SortType t)
             {
                 switch (t)
@@ -133,10 +127,11 @@ namespace olewoo
                         break;
                 }
             }
-            public int Compare(TreeNode x, TreeNode y) => _cd(x.Tag as ITlibNode, y.Tag as ITlibNode);
-            int CompareNum(ITlibNode x, ITlibNode y) => x.Idx.CompareTo(y.Idx);
-            int CompareAlphaUp(ITlibNode x, ITlibNode y) => x.Name.CompareTo(y.Name);
-            int CompareAlphaDown(ITlibNode x, ITlibNode y) => y.Name.CompareTo(x.Name);
+
+            public int Compare(TreeNode x, TreeNode y) => _cd(x.Tag as TlibNode, y.Tag as TlibNode);
+            int CompareNum(TlibNode x, TlibNode y) => x.Idx.CompareTo(y.Idx);
+            int CompareAlphaUp(TlibNode x, TlibNode y) => x.Name.CompareTo(y.Name);
+            int CompareAlphaDown(TlibNode x, TlibNode y) => y.Name.CompareTo(x.Name);
         }
 
         private void BtnSortAlpha_Click(object sender, EventArgs e)
@@ -144,14 +139,19 @@ namespace olewoo
             using (new UpdateSuspender(tvLibDisp))
             {
                 _sort++;
-                if (_sort == SortType.Sorted_Max) _sort = SortType.Sorted_Numerically;
+                if (_sort == SortType.Sorted_Max)
+                {
+                    _sort = SortType.Sorted_Numerically;
+                }
+
                 var nlst = new List<TreeNode>();
                 TreeNode root = tvLibDisp.Nodes[0];
-                System.Collections.IEnumerator enm = root.Nodes.GetEnumerator();
+                var enm = root.Nodes.GetEnumerator();
                 while (enm.MoveNext())
                 {
                     nlst.Add(enm.Current as TreeNode);
                 }
+
                 nlst.Sort(new OleNodeComparer(_sort));
                 root.Nodes.Clear();
                 root.Nodes.AddRange(nlst.ToArray());
@@ -177,12 +177,12 @@ namespace olewoo
     public class NamedNode
     {
         private readonly TreeNode _tn;
-        private ITlibNode _tln;
+        private TlibNode _tln;
 
         public NamedNode(TreeNode tn)
         {
             _tn = tn;
-            _tln = tn.Tag as ITlibNode;
+            _tln = tn.Tag as TlibNode;
         }
 
         public string Name => _tln.ShortName;
@@ -204,10 +204,10 @@ namespace olewoo
 
         public void Add(TreeNode tn)
         {
-            var tli = tn.Tag as ITlibNode;
+            var tli = tn.Tag as TlibNode;
             string name = tli.ShortName;
             if (name != null)
-            {               
+            {
                 var nn = new NamedNode(tn);
                 _nodes.Add(nn);
                 string oname = tli.ObjectName;

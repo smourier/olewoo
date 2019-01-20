@@ -9,14 +9,14 @@ using System.Collections.Generic;
 
 namespace olewoo
 {
-    class OWChildrenIndirect : ITlibNode
+    class OWChildrenIndirect : TlibNode
     {
-        readonly ITlibNode _parent;
+        readonly TlibNode _parent;
         readonly int _imageidx;
         readonly string _name;
         readonly dlgCreateChildren _genChildren;
 
-        public OWChildrenIndirect(ITlibNode parent, string name, int imageidx, dlgCreateChildren genchildren)
+        public OWChildrenIndirect(TlibNode parent, string name, int imageidx, dlgCreateChildren genchildren)
         {
             _parent = parent;
             _name = name;
@@ -28,10 +28,10 @@ namespace olewoo
         public override string ShortName => _name;
         public override string ObjectName => null;
         public override int ImageIndex => _imageidx;
-        public override ITlibNode Parent => _parent;
+        public override TlibNode Parent => _parent;
 
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => true;
-        public override List<ITlibNode> GenChildren() => _genChildren();
+        public override List<TlibNode> GenChildren() => _genChildren();
         public override void BuildIDLInto(IDLFormatter ih) => Children.ForEach(x => x.BuildIDLInto(ih));
     }
 }

@@ -12,9 +12,9 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    class OWDispInterface : ITlibNode
+    class OWDispInterface : TlibNode
     {
-        readonly ITlibNode _parent;
+        readonly TlibNode _parent;
         readonly string _name;
         TypeAttr _ta;
         ITypeInfo _ti;
@@ -22,7 +22,7 @@ namespace olewoo
         OWIDispatchMethods _methodChildren;
         OWIDispatchProperties _propChildren;
 
-        public OWDispInterface(ITlibNode parent, ITypeInfo ti, TypeAttr ta, bool topLevel)
+        public OWDispInterface(TlibNode parent, ITypeInfo ti, TypeAttr ta, bool topLevel)
         {
             _parent = parent;
             _name = ti.GetName();
@@ -37,12 +37,12 @@ namespace olewoo
         
         // Don't show a dispinterface at top level, UNLESS the corresponding interface is not itself at top level. 
         public override int ImageIndex => (int)ImageIndices.idx_dispinterface;
-        public override ITlibNode Parent => _parent;
+        public override TlibNode Parent => _parent;
 
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => !(interfaceNames.Contains(ShortName));
-        public override List<ITlibNode> GenChildren()
+        public override List<TlibNode> GenChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             if (_ta.cVars > 0)
             {
                 _propChildren = new OWIDispatchProperties(this);
@@ -62,9 +62,9 @@ namespace olewoo
             return res;
         }
 
-        public List<ITlibNode> MethodChildren()
+        public List<TlibNode> MethodChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             int nfuncs = _ta.cFuncs;
             for (int idx = 0; idx < nfuncs; ++idx)
             {
@@ -75,9 +75,9 @@ namespace olewoo
             return res;
         }
 
-        public List<ITlibNode> PropertyChildren()
+        public List<TlibNode> PropertyChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             for (int x = 0; x < _ta.cVars; ++x)
             {
                 var vd = new VarDesc(_ti, x);

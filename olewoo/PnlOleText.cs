@@ -89,7 +89,7 @@ namespace olewoo
                 using (new TBUpdateSuspender(rtfOleText))
                 {
                     AddHistory(_n);
-                    ITlibNode tn = (value == null) ? null : (value.Tag as ITlibNode);
+                    TlibNode tn = (value == null) ? null : (value.Tag as TlibNode);
                     _n = value;
                     rtfOleText.Text = "";
                     if (tn != null)

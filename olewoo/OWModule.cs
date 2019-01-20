@@ -12,15 +12,15 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    class OWModule : ITlibNode
+    class OWModule : TlibNode
     {
-        readonly ITlibNode _parent;
+        readonly TlibNode _parent;
         readonly string _name;
         ITypeInfo _ti;
         TypeAttr _ta;
         readonly string _dllname;
 
-        public OWModule(ITlibNode parent, ITypeInfo ti, TypeAttr ta)
+        public OWModule(TlibNode parent, ITypeInfo ti, TypeAttr ta)
         {
             _parent = parent;
             _ti = ti;
@@ -49,11 +49,11 @@ namespace olewoo
         public override string ObjectName => null;
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => true;
         public override int ImageIndex => (int)ImageIndices.idx_module;
-        public override ITlibNode Parent => _parent;
+        public override TlibNode Parent => _parent;
 
-        public override List<ITlibNode> GenChildren()
+        public override List<TlibNode> GenChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             if (_ta.cVars > 0)
             {
                 res.Add(new OWChildrenIndirect(this, "Constants", (int)ImageIndices.idx_constlist, GenConstChildren));
@@ -66,9 +66,9 @@ namespace olewoo
             return res;
         }
 
-        private List<ITlibNode> GenConstChildren()
+        private List<TlibNode> GenConstChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             for (int x = 0; x < _ta.cVars; ++x)
             {
                 var vd = new VarDesc(_ti, x);
@@ -77,9 +77,9 @@ namespace olewoo
             return res;
         }
 
-        private List<ITlibNode> GenFuncChildren()
+        private List<TlibNode> GenFuncChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             for (int x = 0; x < _ta.cFuncs; ++x)
             {
                 var fd = new FuncDesc(_ti, x);

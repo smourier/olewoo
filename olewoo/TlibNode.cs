@@ -11,9 +11,9 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    public abstract class ITlibNode
+    public abstract class TlibNode
     {
-        public delegate List<ITlibNode> dlgCreateChildren();
+        public delegate List<TlibNode> dlgCreateChildren();
 
         public enum ImageIndices
         {
@@ -34,17 +34,17 @@ namespace olewoo
             idx_propertylist
         };
 
-        private List<ITlibNode> _children;
+        private List<TlibNode> _children;
 
-        public abstract ITlibNode Parent { get; }
-        public abstract List<ITlibNode> GenChildren();
+        public abstract TlibNode Parent { get; }
+        public abstract List<TlibNode> GenChildren();
         public abstract string Name { get; }
         public int Idx { get; set; }
         public abstract string ShortName { get; }
         public abstract string ObjectName { get; }
         public abstract int ImageIndex { get; }
 
-        public List<ITlibNode> Children
+        public List<TlibNode> Children
         {
             get
             {
@@ -62,7 +62,7 @@ namespace olewoo
 
         public abstract bool DisplayAtTLBLevel(ICollection<string> interfaceNames);
 
-        public void CommonBuildTlibNode(ITlibNode parent, ITypeInfo ti, bool topLevel, bool swapfordispatch, List<ITlibNode> res)
+        public void CommonBuildTlibNode(TlibNode parent, ITypeInfo ti, bool topLevel, bool swapfordispatch, List<TlibNode> res)
         {
             TypeAttr ta = ti.GetTypeAttr();
             switch (ta.typekind)

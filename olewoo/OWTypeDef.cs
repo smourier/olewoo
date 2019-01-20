@@ -11,14 +11,14 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    class OWTypeDef : ITlibNode
+    class OWTypeDef : TlibNode
     {
-        readonly ITlibNode _parent;
+        readonly TlibNode _parent;
         ITypeInfo _ti;
         TypeAttr _ta;
         readonly string _name;
 
-        public OWTypeDef(ITlibNode parent, ITypeInfo ti, TypeAttr ta)
+        public OWTypeDef(TlibNode parent, ITypeInfo ti, TypeAttr ta)
         {
             _parent = parent;
             _ta = ta;
@@ -43,13 +43,13 @@ namespace olewoo
         public override string ShortName => _name;
         public override string ObjectName => _name + "#i";
         public override int ImageIndex => (int)ImageIndices.idx_typedef;
-        public override ITlibNode Parent => _parent;
+        public override TlibNode Parent => _parent;
 
         public override void BuildIDLInto(IDLFormatter ih) => ih.AppendLine("typedef [public] " + _name + ";");
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => true;
-        public override List<ITlibNode> GenChildren()
+        public override List<TlibNode> GenChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             ITypeInfo oti = null;
             try
             {
@@ -59,7 +59,8 @@ namespace olewoo
             {
             }
 
-            if (oti != null)
+            // fixed infinite recursion
+            if (oti != null && _ti != oti)
             {
                 CommonBuildTlibNode(this, oti, false, false, res);
             }

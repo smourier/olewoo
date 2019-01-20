@@ -34,10 +34,12 @@ namespace olewoo.interop
 
         public string GetDllEntry(ITypeInfo ti, INVOKEKIND invKind, int memid)
         {
-            var bstr = AllocCoTaskMem(IntPtr.Size);
-            ti.GetDllEntry(memid, invKind, bstr, IntPtr.Zero, IntPtr.Zero);
+            var ptr = AllocCoTaskMem(IntPtr.Size);
+            ti.GetDllEntry(memid, invKind, ptr, IntPtr.Zero, IntPtr.Zero);
+            var bstr = ReadIntPtr(ptr);
             var name = PtrToStringBSTR(bstr);
             FreeBSTR(bstr);
+            FreeCoTaskMem(ptr);
             return name;
         }
     }

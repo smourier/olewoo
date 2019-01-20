@@ -11,15 +11,15 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    class OWInterface : ITlibNode
+    class OWInterface : TlibNode
     {
-        readonly ITlibNode _parent;
+        readonly TlibNode _parent;
         readonly string _name;
         TypeAttr _ta;
         ITypeInfo _ti;
         readonly bool _topLevel;
 
-        public OWInterface(ITlibNode parent, ITypeInfo ti, TypeAttr ta, bool topLevel)
+        public OWInterface(TlibNode parent, ITypeInfo ti, TypeAttr ta, bool topLevel)
         {
             _parent = parent;
             _name = ti.GetName();
@@ -33,11 +33,11 @@ namespace olewoo
         public override string ObjectName => _name + "#i";
         public override string ShortName => _name;
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => true;
-        public override ITlibNode Parent => _parent;
+        public override TlibNode Parent => _parent;
 
-        public override List<ITlibNode> GenChildren()
+        public override List<TlibNode> GenChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             // First add a child for every method / property, then an inherited interfaces
             // child (if applicable).
 

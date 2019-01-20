@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace olewoo
 {
-    class OWIDispatchMethods : ITlibNode
+    class OWIDispatchMethods : TlibNode
     {
         OWDispInterface _parent;
 
@@ -24,9 +24,9 @@ namespace olewoo
         public override string ObjectName => null;
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => false;
         public override int ImageIndex => (int)ImageIndices.idx_methodlist;
-        public override ITlibNode Parent => _parent as ITlibNode;
+        public override TlibNode Parent => _parent as TlibNode;
 
-        public override List<ITlibNode> GenChildren() => _parent.MethodChildren();
+        public override List<TlibNode> GenChildren() => _parent.MethodChildren();
         public override void BuildIDLInto(IDLFormatter ih)
         {
             var meths = Children.ToList().ConvertAll(x => x as OWMethod);

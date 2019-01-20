@@ -11,16 +11,16 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    class OWModuleConst : ITlibNode
+    class OWModuleConst : TlibNode
     {
-        readonly ITlibNode _parent;
+        readonly TlibNode _parent;
         readonly string _name;
         VarDesc _vd;
         readonly ITypeInfo _ti;
         object _val;
         readonly int _idx;
 
-        public OWModuleConst(ITlibNode parent, ITypeInfo ti, VarDesc vd, int idx)
+        public OWModuleConst(TlibNode parent, ITypeInfo ti, VarDesc vd, int idx)
         {
             _parent = parent;
             _vd = vd;
@@ -46,10 +46,10 @@ namespace olewoo
         public override string ShortName => _name;
         public override string ObjectName => null;
         public override int ImageIndex => (int)ImageIndices.idx_const;
-        public override ITlibNode Parent => _parent;
+        public override TlibNode Parent => _parent;
 
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => false;
-        public override List<ITlibNode> GenChildren() => new List<ITlibNode>();
+        public override List<TlibNode> GenChildren() => new List<TlibNode>();
 
         string NegStr(int x) => (x < 0) ? ("0x" + x.ToString("X")) : x.ToString();
 

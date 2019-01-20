@@ -14,17 +14,17 @@ namespace olewoo
     // A dispinterface's first inherited interface is the swap for interface.
     class OWDispInterfaceInheritedInterfaces : OWInheritedInterfaces
     {
-        public OWDispInterfaceInheritedInterfaces(ITlibNode parent, ITypeInfo ti, TypeAttr ta)
+        public OWDispInterfaceInheritedInterfaces(TlibNode parent, ITypeInfo ti, TypeAttr ta)
             : base(parent, ti, ta)
         {
         }
 
-        public override List<ITlibNode> GenChildren()
+        public override List<TlibNode> GenChildren()
         {
             ITypeInfo ti = _ti;
             TypeAttr ta = _ta;
             ITypeInfoXtra.SwapForInterface(ref ti, ref ta);
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             res.Add(new OWInterface(this, ti, ta, false));
             return res;
         }

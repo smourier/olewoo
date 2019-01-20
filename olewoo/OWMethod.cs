@@ -11,14 +11,14 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    class OWMethod : ITlibNode
+    class OWMethod : TlibNode
     {
-        readonly ITlibNode _parent;
+        readonly TlibNode _parent;
         readonly string _name;
         FuncDesc _fd;
         ITypeInfo _ti;
 
-        public OWMethod(ITlibNode parent, ITypeInfo ti, FuncDesc fd)
+        public OWMethod(TlibNode parent, ITypeInfo ti, FuncDesc fd)
         {
             _parent = parent;
             _ti = ti;
@@ -35,7 +35,7 @@ namespace olewoo
         public override string ObjectName => _name + "#m";
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => false;
         public override int ImageIndex => (int)ImageIndices.idx_method;
-        public override ITlibNode Parent => _parent;
+        public override TlibNode Parent => _parent;
 
         private string ParamFlagsDescription(ParamDesc pd)
         {
@@ -73,7 +73,7 @@ namespace olewoo
 
         delegate void GenPt(int x);
 
-        public override List<ITlibNode> GenChildren() => new List<ITlibNode>();
+        public override List<TlibNode> GenChildren() => new List<TlibNode>();
         public override void BuildIDLInto(IDLFormatter ih) => BuildIDLInto(ih, false);
         public void BuildIDLInto(IDLFormatter ih, bool bAsDispatch)
         {

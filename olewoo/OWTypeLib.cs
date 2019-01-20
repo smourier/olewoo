@@ -13,7 +13,7 @@ using olewoo.interop;
 
 namespace olewoo
 {
-    public class OWTypeLib : ITlibNode, IClearUp
+    public class OWTypeLib : TlibNode, IClearUp
     {
         ITypeLib _tlib;
         readonly string _name;
@@ -39,11 +39,11 @@ namespace olewoo
         public override string ShortName => _tlib.GetName();
         public override string ObjectName => ShortName;
         public override string Name => _name;
-        public override ITlibNode Parent => null;
+        public override TlibNode Parent => null;
 
-        public override List<ITlibNode> GenChildren()
+        public override List<TlibNode> GenChildren()
         {
-            var res = new List<ITlibNode>();
+            var res = new List<TlibNode>();
             int ticount = _tlib.GetTypeInfoCount();
             for (int x = 0; x < ticount; ++x)
             {
@@ -98,7 +98,7 @@ namespace olewoo
 
                 // Need to collect all dumpable interface names, in case we have dispinterfaces which don't have
                 // top level interfaces.  In THIS case, we'd dump the dispinterface.
-                var interfaceNames = Children.Aggregate<ITlibNode, ICollection<string>>(new HashSet<string>(),
+                var interfaceNames = Children.Aggregate<TlibNode, ICollection<string>>(new HashSet<string>(),
                     (x, y) =>
                     {
                         if ((y as OWInterface) != null)
