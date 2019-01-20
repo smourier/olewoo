@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FD92F63C-F317-4534-9CE1-DC43B9EE88C9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>olewoo</RootNamespace>
+    <AssemblyName>olewoo</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>olewoo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileShellExtension.cs" />
+    <Compile Include="FindDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDialog.designer.cs">
+      <DependentUpon>FindDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GuiMisc.cs" />
+    <Compile Include="IDLHelper.cs" />
+    <Compile Include="interop\CUSTDATAITEM.cs" />
+    <Compile Include="interop\CustomDatas.cs" />
+    <Compile Include="interop\ElemDesc.cs" />
+    <Compile Include="interop\FuncDesc.cs" />
+    <Compile Include="interop\IDLFormatter_iop.cs" />
+    <Compile Include="interop\ParamDesc.cs" />
+    <Compile Include="interop\TypeAttr.cs" />
+    <Compile Include="interop\TypeDesc.cs" />
+    <Compile Include="interop\TypeLibAttr.cs" />
+    <Compile Include="interop\VarDesc.cs" />
+    <Compile Include="MRUList.cs" />
+    <Compile Include="OleWoo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OleWoo.designer.cs">
+      <DependentUpon>OleWoo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OWTypeLib.cs" />
+    <Compile Include="PnlOleText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PnlOleText.designer.cs">
+      <DependentUpon>PnlOleText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PnlTextOrTabbed.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PnlTextOrTabbed.designer.cs">
+      <DependentUpon>PnlTextOrTabbed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RichTextBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TabControlCB.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TabControlCB.designer.cs">
+      <DependentUpon>TabControlCB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Win32.cs" />
+    <Compile Include="wooctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="wooctrl.designer.cs">
+      <DependentUpon>wooctrl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDialog.resx">
+      <DependentUpon>FindDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OleWoo.resx">
+      <DependentUpon>OleWoo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PnlOleText.resx">
+      <DependentUpon>PnlOleText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PnlTextOrTabbed.resx">
+      <DependentUpon>PnlTextOrTabbed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabControlCB.resx">
+      <DependentUpon>TabControlCB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="wooctrl.resx">
+      <DependentUpon>wooctrl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\arrow_selected.gif" />
+    <Content Include="images\Arrow_undo.png" />
+    <Content Include="images\Bull-icon-about.png" />
+    <Content Include="images\close_icon.png" />
+    <Content Include="images\olewoo.ico" />
+    <Content Include="images\search_icon.png" />
+    <Content Include="images\sort_ascending_alpha.gif" />
+    <Content Include="images\tv_coclass.bmp" />
+    <Content Include="images\tv_const.bmp" />
+    <Content Include="images\tv_constlist.bmp" />
+    <Content Include="images\tv_dispinterface.bmp" />
+    <Content Include="images\tv_enum.bmp" />
+    <Content Include="images\tv_interface.bmp" />
+    <Content Include="images\tv_method.bmp" />
+    <Content Include="images\tv_methodlist.bmp" />
+    <Content Include="images\tv_module.bmp" />
+    <Content Include="images\tv_properties.bmp" />
+    <Content Include="images\tv_strucmem.bmp" />
+    <Content Include="images\tv_struct.bmp" />
+    <Content Include="images\tv_typedef.bmp" />
+    <Content Include="images\tv_typelib.bmp" />
+    <Content Include="olewoo.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
