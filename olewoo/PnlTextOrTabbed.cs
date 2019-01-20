@@ -40,14 +40,8 @@ namespace olewoo_cs
         }
         public NodeLocator NodeLocator
         {
-            set
-            {
-                _nl = value;
-            }
-            get
-            {
-                return _nl;
-            }
+            set => _nl = value;
+            get => _nl;
         }
         public void SetCurrentNode(TreeNode n)
         {
@@ -119,8 +113,7 @@ namespace olewoo_cs
         public void pnlOleText_TabIndexChanged(object sender, EventArgs e)
         {
             if (pnlOleText.SelectedTab == null) return;
-            var pot = pnlOleText.SelectedTab.Tag as PnlOleText;
-            if (pot == null) return;
+            if (!(pnlOleText.SelectedTab.Tag is PnlOleText pot)) return;
             _parent.SelectTreeNode(pot.TreeNode);
         }
     }

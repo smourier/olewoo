@@ -13,10 +13,10 @@ namespace olewoo_cs
 {
     static class NativeMethods
     {
-        [DllImport("user32.dll")]
+        [DllImport("user32")]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, ref int lParam);
 
-        [DllImport("oleaut32.dll", CharSet = CharSet.Unicode, ExactSpelling = true)]
+        [DllImport("oleaut32", CharSet = CharSet.Unicode, ExactSpelling = true)]
         public static extern int LoadTypeLib(string fileName, out ITypeLib typeLib);
 
         public static void SetTabs(this System.Windows.Forms.TextBox box, int nSpaces)

@@ -70,17 +70,11 @@ namespace olewoo_cs
         }
         public PnlTextOrTabbed TabParent
         {
-            set
-            {
-                _parent = value;
-            }
+            set => _parent = value;
         }
         public TreeNode TreeNode
         {
-            get
-            {
-                return _n;
-            }
+            get => _n;
             set
             {
                 using (new TBUpdateSuspender(rtfOleText))

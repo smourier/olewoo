@@ -62,7 +62,7 @@
             this.btnFindNext.TabIndex = 2;
             this.btnFindNext.Text = "&Find Next";
             this.btnFindNext.UseVisualStyleBackColor = true;
-            this.btnFindNext.Click += new System.EventHandler(this.btnFindNext_Click);
+            this.btnFindNext.Click += new System.EventHandler(this.BtnFindNext_Click);
             // 
             // btnCancel
             // 
@@ -73,7 +73,7 @@
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // groupBox1
             // 
@@ -86,7 +86,7 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Direction";
             this.groupBox1.Visible = false;
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.groupBox1.Enter += new System.EventHandler(this.GroupBox1_Enter);
             // 
             // rbFindDown
             // 

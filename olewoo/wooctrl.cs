@@ -61,19 +61,20 @@ namespace olewoo_cs
             return tn;
         }
 
-        private void tvLibDisp_AfterSelect(object sender, TreeViewEventArgs e) => txtOleDescrPlain.SetCurrentNode(e.Node);
+        private void TvLibDisp_AfterSelect(object sender, TreeViewEventArgs e) => txtOleDescrPlain.SetCurrentNode(e.Node);
 
         private void ClearMatches()
         {
             pnlMatchesList.Visible = false;
             lstNodeMatches.Items.Clear();
         }
+
         /*
          * Search through the registered names for the tree nodes.
          * 
          * When we hit one, select that node.
          */
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
             string text = txtSearch.Text;
             if (text == "")
@@ -99,16 +100,16 @@ namespace olewoo_cs
             }
         }
 
-        private void lstNodeMatches_SelectedIndexChanged(object sender, EventArgs e)
+        private void LstNodeMatches_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var nn = lstNodeMatches.SelectedItem as NamedNode;
-            if (nn == null) return;
+            if (!(lstNodeMatches.SelectedItem is NamedNode nn))
+                return;
+
             tvLibDisp.ActivateNode(nn.TreeNode);
         }
 
-        private void btnHideMatches_Click(object sender, EventArgs e) => txtSearch.Text = "";
-
-        private void btnAddNodeTabl_Click(object sender, EventArgs e) => txtOleDescrPlain.AddTab(tvLibDisp.SelectedNode);
+        private void BtnHideMatches_Click(object sender, EventArgs e) => txtSearch.Text = "";
+        private void BtnAddNodeTabl_Click(object sender, EventArgs e) => txtOleDescrPlain.AddTab(tvLibDisp.SelectedNode);
         public void SelectTreeNode(TreeNode tn) => tvLibDisp.ActivateNode(tn);
 
         delegate int CompDelg(ITlibNode x, ITlibNode y);
@@ -138,7 +139,7 @@ namespace olewoo_cs
             int CompareAlphaDown(ITlibNode x, ITlibNode y) => y.Name.CompareTo(x.Name);
         }
 
-        private void btnSortAlpha_Click(object sender, EventArgs e)
+        private void BtnSortAlpha_Click(object sender, EventArgs e)
         {
             using (new UpdateSuspender(tvLibDisp))
             {
@@ -157,11 +158,11 @@ namespace olewoo_cs
             }
         }
 
-        private void btnRewind_Click(object sender, EventArgs e) => txtOleDescrPlain.RewindOne();
+        private void BtnRewind_Click(object sender, EventArgs e) => txtOleDescrPlain.RewindOne();
 
     }
 
-    static class xtras
+    static class Xtras
     {
         public static void ActivateNode(this TreeView tv, TreeNode tn)
         {
@@ -177,11 +178,13 @@ namespace olewoo_cs
     {
         private readonly TreeNode _tn;
         private ITlibNode _tln;
+
         public NamedNode(TreeNode tn)
         {
             _tn = tn;
             _tln = tn.Tag as ITlibNode;
         }
+
         public string Name => _tln.ShortName;
         public string ObjectName => _tln.ObjectName;
         public TreeNode TreeNode => _tn;
@@ -190,13 +193,13 @@ namespace olewoo_cs
 
     public class NodeLocator
     {
-        List<NamedNode> nodes;
-        Dictionary<string, NamedNode> linkmap;
+        List<NamedNode> _nodes;
+        Dictionary<string, NamedNode> _linkmap;
 
         public NodeLocator()
         {
-            nodes = new List<NamedNode>();
-            linkmap = new Dictionary<string, NamedNode>();
+            _nodes = new List<NamedNode>();
+            _linkmap = new Dictionary<string, NamedNode>();
         }
 
         public void Add(TreeNode tn)
@@ -206,11 +209,11 @@ namespace olewoo_cs
             if (name != null)
             {               
                 var nn = new NamedNode(tn);
-                nodes.Add(nn);
+                _nodes.Add(nn);
                 string oname = tli.ObjectName;
-                if (!string.IsNullOrEmpty(oname) && !linkmap.ContainsKey(oname))
+                if (!string.IsNullOrEmpty(oname) && !_linkmap.ContainsKey(oname))
                 {
-                    linkmap[oname] = nn;
+                    _linkmap[oname] = nn;
                 }
             }
         }
@@ -218,15 +221,14 @@ namespace olewoo_cs
         public List<NamedNode> FindMatches(string text)
         {
             var re = new Regex("^.*" + text, RegexOptions.IgnoreCase);
-            return nodes.FindAll(x => re.IsMatch(x.Name));
+            return _nodes.FindAll(x => re.IsMatch(x.Name));
         }
 
         public NamedNode FindLinkMatch(string text)
         {
-            if (linkmap.ContainsKey(text))
-            {
-                return linkmap[text];
-            }
+            if (_linkmap.ContainsKey(text))
+                return _linkmap[text];
+
             return null;
         }
     }

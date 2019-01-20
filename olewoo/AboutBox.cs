@@ -5,7 +5,6 @@
  * CopyLeft, but please credit.
  *
  */
-using System;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -24,20 +23,16 @@ namespace olewoo_cs
             textBoxDescription.Text = AssemblyDescription;
         }
 
-        #region Assembly Attribute Accessors
-
         public string AssemblyTitle
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                var attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
                 if (attributes.Length > 0)
                 {
                     var titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != "")
-                    {
+                    if (!string.IsNullOrWhiteSpace(titleAttribute.Title))
                         return titleAttribute.Title;
-                    }
                 }
                 return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
@@ -49,11 +44,10 @@ namespace olewoo_cs
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+                var attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0)
-                {
-                    return "";
-                }
+                    return string.Empty;
+
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
@@ -62,11 +56,10 @@ namespace olewoo_cs
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+                var attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
                 if (attributes.Length == 0)
-                {
-                    return "";
-                }
+                    return string.Empty;
+
                 return ((AssemblyProductAttribute)attributes[0]).Product;
             }
         }
@@ -75,11 +68,10 @@ namespace olewoo_cs
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                var attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 if (attributes.Length == 0)
-                {
-                    return "";
-                }
+                    return string.Empty;
+
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
         }
@@ -88,15 +80,12 @@ namespace olewoo_cs
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+                var attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
                 if (attributes.Length == 0)
-                {
-                    return "";
-                }
+                    return string.Empty;
+
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
-
     }
 }

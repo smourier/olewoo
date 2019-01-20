@@ -19,14 +19,14 @@ namespace olewoo_cs
             _textctrl = textctrl;
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void GroupBox1_Enter(object sender, EventArgs e)
         {
 
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) => Close();
+        private void BtnCancel_Click(object sender, EventArgs e) => Close();
 
-        private void btnFindNext_Click(object sender, EventArgs e)
+        private void BtnFindNext_Click(object sender, EventArgs e)
         {
             if (_textctrl.FindNextText(txtSearchString.Text, rbFindDown.Checked))
             {

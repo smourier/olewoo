@@ -85,7 +85,7 @@
             this.lstNodeMatches.Name = "lstNodeMatches";
             this.lstNodeMatches.Size = new System.Drawing.Size(102, 472);
             this.lstNodeMatches.TabIndex = 1;
-            this.lstNodeMatches.SelectedIndexChanged += new System.EventHandler(this.lstNodeMatches_SelectedIndexChanged);
+            this.lstNodeMatches.SelectedIndexChanged += new System.EventHandler(this.LstNodeMatches_SelectedIndexChanged);
             // 
             // panel2
             // 
@@ -104,7 +104,7 @@
             this.btnHideMatches.TabIndex = 0;
             this.btnHideMatches.Text = ">>";
             this.btnHideMatches.UseVisualStyleBackColor = true;
-            this.btnHideMatches.Click += new System.EventHandler(this.btnHideMatches_Click);
+            this.btnHideMatches.Click += new System.EventHandler(this.BtnHideMatches_Click);
             // 
             // panel3
             // 
@@ -143,7 +143,7 @@
             this.tvLibDisp.Name = "tvLibDisp";
             this.tvLibDisp.Size = new System.Drawing.Size(192, 446);
             this.tvLibDisp.TabIndex = 3;
-            this.tvLibDisp.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvLibDisp_AfterSelect);
+            this.tvLibDisp.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TvLibDisp_AfterSelect);
             // 
             // panel7
             // 
@@ -163,7 +163,7 @@
             this.btnRewind.Size = new System.Drawing.Size(22, 22);
             this.btnRewind.TabIndex = 1;
             this.btnRewind.UseVisualStyleBackColor = true;
-            this.btnRewind.Click += new System.EventHandler(this.btnRewind_Click);
+            this.btnRewind.Click += new System.EventHandler(this.BtnRewind_Click);
             // 
             // btnSortAlpha
             // 
@@ -173,7 +173,7 @@
             this.btnSortAlpha.Size = new System.Drawing.Size(22, 22);
             this.btnSortAlpha.TabIndex = 0;
             this.btnSortAlpha.UseVisualStyleBackColor = true;
-            this.btnSortAlpha.Click += new System.EventHandler(this.btnSortAlpha_Click);
+            this.btnSortAlpha.Click += new System.EventHandler(this.BtnSortAlpha_Click);
             // 
             // panel5
             // 
@@ -192,7 +192,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(100, 20);
             this.txtSearch.TabIndex = 4;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
             // 
             // panel6
             // 
@@ -278,7 +278,7 @@
             this.btnAddNodeTabl.TabIndex = 0;
             this.btnAddNodeTabl.Text = "Add New Tab";
             this.btnAddNodeTabl.UseVisualStyleBackColor = true;
-            this.btnAddNodeTabl.Click += new System.EventHandler(this.btnAddNodeTabl_Click);
+            this.btnAddNodeTabl.Click += new System.EventHandler(this.BtnAddNodeTabl_Click);
             // 
             // wooctrl
             // 

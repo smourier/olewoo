@@ -6,14 +6,9 @@
  *
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace olewoo_cs
 {
@@ -31,7 +26,6 @@ namespace olewoo_cs
             if (e.Bounds != RectangleF.Empty)
             {
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-
                 RectangleF tabTextArea = RectangleF.Empty;
 
                 for (int nIndex = 0; nIndex < TabCount; nIndex++)
@@ -44,57 +38,53 @@ namespace olewoo_cs
                     }
                     else
                     {
-                          var _Path = new GraphicsPath();
-                          _Path.AddRectangle(tabTextArea);
-                          using (var _Brush = new LinearGradientBrush(tabTextArea, SystemColors.Control, SystemColors.ControlLight, LinearGradientMode.Vertical))
-                          {
-                              var _ColorBlend = new ColorBlend(3);
-                              _ColorBlend.Colors = new Color[]{SystemColors.ControlLightLight, 
+                        var _Path = new GraphicsPath();
+                        _Path.AddRectangle(tabTextArea);
+                        using (var _Brush = new LinearGradientBrush(tabTextArea, SystemColors.Control, SystemColors.ControlLight, LinearGradientMode.Vertical))
+                        {
+                            var _ColorBlend = new ColorBlend(3);
+                            _ColorBlend.Colors = new Color[]{SystemColors.ControlLightLight,
                                                           Color.FromArgb(255,SystemColors.ControlLight),SystemColors.ControlDark,
                                                           SystemColors.ControlLightLight};
 
-                              _ColorBlend.Positions = new float[] { 0f, .4f, 0.5f, 1f };
-                              _Brush.InterpolationColors = _ColorBlend;
+                            _ColorBlend.Positions = new float[] { 0f, .4f, 0.5f, 1f };
+                            _Brush.InterpolationColors = _ColorBlend;
 
-                              e.Graphics.FillPath(_Brush, _Path);
-                              using (var pen = new Pen(SystemColors.ActiveBorder))
-                              {
-                                  e.Graphics.DrawPath(pen, _Path);
-                              }
-                          }
-                          _Path.Dispose();
+                            e.Graphics.FillPath(_Brush, _Path);
+                            using (var pen = new Pen(SystemColors.ActiveBorder))
+                            {
+                                e.Graphics.DrawPath(pen, _Path);
+                            }
+                        }
+                        _Path.Dispose();
                     }
                     string str = TabPages[nIndex].Text;
                     var stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Near;
                     tabTextArea.Offset(2, 2);
-                    e.Graphics.DrawString(str, Font, new SolidBrush(TabPages[nIndex].ForeColor), tabTextArea, stringFormat);                    
+                    e.Graphics.DrawString(str, Font, new SolidBrush(TabPages[nIndex].ForeColor), tabTextArea, stringFormat);
                 }
             }
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-                var tabTextArea = (RectangleF)GetTabRect(SelectedIndex);
-                var icon = new Rectangle((int)tabTextArea.X, (int)tabTextArea.Y, (int)tabTextArea.Width, (int)tabTextArea.Height);
-                tabTextArea =
-                    new RectangleF(tabTextArea.X + tabTextArea.Width - 16, 4, 16,16);
-                var pt = new Point(e.X, e.Y);
-                if (tabTextArea.Contains(pt))
-                {
-                    var icu = SelectedTab.Tag as IClearUp; // IDispose not appropriate.
-                    if (icu != null) icu.ClearUp();
-                    TabPages.Remove(SelectedTab);
-                    if (_itr != null) _itr();
-                }
+            var tabTextArea = (RectangleF)GetTabRect(SelectedIndex);
+            var icon = new Rectangle((int)tabTextArea.X, (int)tabTextArea.Y, (int)tabTextArea.Width, (int)tabTextArea.Height);
+            tabTextArea = new RectangleF(tabTextArea.X + tabTextArea.Width - 16, 4, 16, 16);
+            var pt = new Point(e.X, e.Y);
+            if (tabTextArea.Contains(pt))
+            {
+                // IDispose not appropriate.
+                if (SelectedTab.Tag is IClearUp icu) icu.ClearUp();
+                TabPages.Remove(SelectedTab);
+                _itr?.Invoke();
+            }
         }
 
         public InformTabRemoved InformTabRemoved
         {
-            set
-            {
-                _itr = value;
-            }
+            set => _itr = value;
         }
         InformTabRemoved _itr;
     }

@@ -64,7 +64,7 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
-            this.fileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.fileToolStripMenuItem_Click);
+            this.fileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.FileToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -85,14 +85,14 @@
             this.registerContextHandlerToolStripMenuItem.Name = "registerContextHandlerToolStripMenuItem";
             this.registerContextHandlerToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.registerContextHandlerToolStripMenuItem.Text = "&Register context handler";
-            this.registerContextHandlerToolStripMenuItem.Click += new System.EventHandler(this.registerContextHandlerToolStripMenuItem_Click);
+            this.registerContextHandlerToolStripMenuItem.Click += new System.EventHandler(this.RegisterContextHandlerToolStripMenuItem_Click);
             // 
             // unregisterContextHandlerToolStripMenuItem
             // 
             this.unregisterContextHandlerToolStripMenuItem.Name = "unregisterContextHandlerToolStripMenuItem";
             this.unregisterContextHandlerToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.unregisterContextHandlerToolStripMenuItem.Text = "&Unregister context handler";
-            this.unregisterContextHandlerToolStripMenuItem.Click += new System.EventHandler(this.unregisterContextHandlerToolStripMenuItem_Click);
+            this.unregisterContextHandlerToolStripMenuItem.Click += new System.EventHandler(this.UnregisterContextHandlerToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -110,7 +110,7 @@
             this.aboutOleWooToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.aboutOleWooToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.aboutOleWooToolStripMenuItem.Text = "&About OleWoo";
-            this.aboutOleWooToolStripMenuItem.Click += new System.EventHandler(this.aboutOleWooToolStripMenuItem_Click);
+            this.aboutOleWooToolStripMenuItem.Click += new System.EventHandler(this.AboutOleWooToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -158,7 +158,6 @@
             this.tcTypeLibs.Size = new System.Drawing.Size(784, 416);
             this.tcTypeLibs.TabIndex = 2;
             this.tcTypeLibs.TabStop = false;
-            this.tcTypeLibs.SelectedIndexChanged += new System.EventHandler(this.tcTypeLibs_SelectedIndexChanged);
             // 
             // OleWoo
             // 
