@@ -12,7 +12,7 @@ namespace olewoo.interop
             _desc = desc;
         }
 
-        public int hreftype => (int)_desc.lpValue;
+        public int hreftype => (int)(ulong)_desc.lpValue;
 
         public void ComTypeNameAsString(ITypeInfo ti, IDLFormatter_iop ift)
         {
@@ -31,6 +31,29 @@ namespace olewoo.interop
                     pd = Marshal.PtrToStructure<System.Runtime.InteropServices.ComTypes.TYPEDESC>(_desc.lpValue);
                     new TypeDesc(pd).ComTypeNameAsString(ti, ift);
                     ift.AddString(")");
+                    break;
+
+                case VarEnum.VT_USERDEFINED:
+                    ITypeInfo cti = null;
+                    try
+                    {
+                        ti.GetRefTypeInfo(hreftype, out cti);
+                    }
+                    catch
+                    {
+                    }
+
+                    string name;
+                    if (cti != null)
+                    {
+                        cti.GetDocumentation(-1, out name, out var docSrting, out var ctx, out var helpFile);
+                    }
+                    else
+                    {
+                        name = "???";
+                    }
+
+                    ift.AddLink(name, "i");
                     break;
 
                 case VarEnum.VT_I2:

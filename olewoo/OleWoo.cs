@@ -86,7 +86,7 @@ namespace olewoo_cs
             // 
             var tmiOpen = new ToolStripMenuItem();
             tmiOpen.Name = "openToolStripMenuItem";
-            tmiOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((Keys.Control | Keys.O)));
+            tmiOpen.ShortcutKeys = (Keys.Control | Keys.O);
             tmiOpen.Size = new System.Drawing.Size(208, 22);
             tmiOpen.Text = "&Open Typelibrary";
             tmiOpen.Click += new System.EventHandler(this.openToolStripMenuItem_Click);

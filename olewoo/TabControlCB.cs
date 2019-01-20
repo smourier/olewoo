@@ -36,7 +36,7 @@ namespace olewoo_cs
 
                 for (int nIndex = 0; nIndex < this.TabCount; nIndex++)
                 {
-                    tabTextArea = (RectangleF)this.GetTabRect(nIndex);
+                    tabTextArea = this.GetTabRect(nIndex);
                     if (nIndex == this.SelectedIndex)
                     {
                         var icon = new Rectangle((int)tabTextArea.X, (int)tabTextArea.Y, (int)tabTextArea.Width, (int)tabTextArea.Height);

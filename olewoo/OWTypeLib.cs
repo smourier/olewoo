@@ -658,11 +658,13 @@ namespace olewoo_cs
                         ih.AddString(" " + paramname);
                     };
             }
+
             (bRetvalPresent ? elast : ed).tdesc.ComTypeNameAsString(_ti, ih);
             if (memIdInSpecialRange)
             {
                 ih.AddString(" " + _fd.callconv.ToString().Substring(2).ToLower());
             }
+
             ih.AddString(" " + _name);
             switch (_fd.cParams)
             {
@@ -1269,8 +1271,19 @@ namespace olewoo_cs
             _ta = ta;
             _ti = ti;
 
-            _ti.GetRefTypeInfo(_ta.tdescAlias.hreftype, out ITypeInfo oti);
-            _name = oti.GetName() + " " + ti.GetName();
+            ITypeInfo oti = null;
+            try
+            {
+                _ti.GetRefTypeInfo(_ta.tdescAlias.hreftype, out oti);
+            }
+            catch
+            {
+            }
+
+            if (oti != null)
+            {
+                _name = oti.GetName() + " " + ti.GetName();
+            }
         }
 
         public override string Name => "typedef " + _name;
@@ -1283,8 +1296,19 @@ namespace olewoo_cs
         public override List<ITlibNode> GenChildren()
         {
             var res = new List<ITlibNode>();
-            _ti.GetRefTypeInfo(_ta.tdescAlias.hreftype, out ITypeInfo oti);
-            CommonBuildTlibNode(this, oti, false, false, res);
+            ITypeInfo oti = null;
+            try
+            {
+                _ti.GetRefTypeInfo(_ta.tdescAlias.hreftype, out oti);
+            }
+            catch
+            {
+            }
+
+            if (oti != null)
+            {
+                CommonBuildTlibNode(this, oti, false, false, res);
+            }
             return res;
         }
 
