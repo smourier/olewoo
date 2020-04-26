@@ -34,6 +34,7 @@ namespace olewoo
         public override string ShortName => _name;
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => true;
         public override TlibNode Parent => _parent;
+        public override string ToString() => Name;
 
         public override List<TlibNode> GenChildren()
         {

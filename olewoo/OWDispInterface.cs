@@ -34,7 +34,8 @@ namespace olewoo
         public override string Name => (_topLevel ? "dispinterface " : "") + _name;
         public override string ShortName => _name;
         public override string ObjectName => _name + "#di";
-        
+        public override string ToString() => Name;
+
         // Don't show a dispinterface at top level, UNLESS the corresponding interface is not itself at top level. 
         public override int ImageIndex => (int)ImageIndices.idx_dispinterface;
         public override TlibNode Parent => _parent;

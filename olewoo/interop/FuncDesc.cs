@@ -11,10 +11,6 @@ namespace olewoo.interop
         {
             ti.GetFuncDesc(idx, out var ptr);
             var desc = PtrToStructure<FUNCDESC>(ptr);
-
-            if (desc.cParamsOpt != 0)
-                throw new NotSupportedException();
-
             memid = desc.memid;
             invkind = desc.invkind;
             callconv = desc.callconv;

@@ -37,6 +37,8 @@ namespace olewoo
         public override int ImageIndex => (int)ImageIndices.idx_method;
         public override TlibNode Parent => _parent;
 
+        public override string ToString() => Name;
+
         private string ParamFlagsDescription(ParamDesc pd)
         {
             PARAMFLAG flg = pd.wParamFlags;

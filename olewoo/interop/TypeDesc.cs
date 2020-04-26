@@ -38,9 +38,10 @@ namespace olewoo.interop
                     var ad = Marshal.PtrToStructure<ARRAYDESC>(desc.lpValue);
                     _action = (ti, ift, v) =>
                     {
+                        var offset = (int)Marshal.OffsetOf<ARRAYDESC>(nameof(ARRAYDESC.rgbounds));
                         for (int i = 0; i < ad.cDims; i++)
                         {
-                            var bounds = Marshal.PtrToStructure<SAFEARRAYBOUND>(ad.rgbounds + Marshal.SizeOf<SAFEARRAYBOUND>() * i);
+                            var bounds = Marshal.PtrToStructure<SAFEARRAYBOUND>(desc.lpValue + offset + Marshal.SizeOf<SAFEARRAYBOUND>() * i);
                             ift.AddString("[");
                             ift.AddString(bounds.lLbound.ToString());
                             ift.AddString("...");
@@ -279,6 +280,9 @@ namespace olewoo.interop
                     };
                     break;
 
+                case VarEnum.VT_EMPTY:
+                    break;
+
                 default:
                     _action = (ti, ift, v) =>
                     {
@@ -298,7 +302,7 @@ namespace olewoo.interop
         {
             public System.Runtime.InteropServices.ComTypes.TYPEDESC tdescElem;
             public short cDims;
-            public IntPtr rgbounds;
+            public SAFEARRAYBOUND rgbounds; // only for offset!
         }
 
         [StructLayout(LayoutKind.Sequential)]

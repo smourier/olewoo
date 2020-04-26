@@ -44,6 +44,7 @@ namespace olewoo
         public override string ObjectName => _name + "#i";
         public override int ImageIndex => (int)ImageIndices.idx_typedef;
         public override TlibNode Parent => _parent;
+        public override string ToString() => Name;
 
         public override void BuildIDLInto(IDLFormatter ih) => ih.AppendLine("typedef [public] " + _name + ";");
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => true;

@@ -24,6 +24,7 @@ namespace olewoo
         public override string ObjectName => null;
         public override int ImageIndex => (int)ImageIndices.idx_propertylist;
         public override TlibNode Parent => _parent as TlibNode;
+        public override string ToString() => Name;
 
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => false;
         public override List<TlibNode> GenChildren() => _parent.PropertyChildren();

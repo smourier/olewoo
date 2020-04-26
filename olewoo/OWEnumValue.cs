@@ -34,6 +34,7 @@ namespace olewoo
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => false;
         public override int ImageIndex => (int)ImageIndices.idx_const;
         public override TlibNode Parent => _parent;
+        public override string ToString() => Name;
 
         string NegStr(int x) => (x < 0) ? ("0x" + x.ToString("X")) : x.ToString();
 

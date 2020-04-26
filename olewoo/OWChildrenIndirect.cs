@@ -29,6 +29,7 @@ namespace olewoo
         public override string ObjectName => null;
         public override int ImageIndex => _imageidx;
         public override TlibNode Parent => _parent;
+        public override string ToString() => Name;
 
         public override bool DisplayAtTLBLevel(ICollection<string> interfaceNames) => true;
         public override List<TlibNode> GenChildren() => _genChildren();

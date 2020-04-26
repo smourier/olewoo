@@ -12,8 +12,11 @@ namespace olewoo.interop
             if (desc.wParamFlags.HasFlag(System.Runtime.InteropServices.ComTypes.PARAMFLAG.PARAMFLAG_FHASDEFAULT) ||
                 desc.wParamFlags.HasFlag(System.Runtime.InteropServices.ComTypes.PARAMFLAG.PARAMFLAG_FOPT))
             {
-                var ex = PtrToStructure<PARAMDESCEX>(desc.lpVarValue);
-                varDefaultValue = ex.varDefaultValue;
+                if (desc.lpVarValue != IntPtr.Zero)
+                {
+                    var ex = PtrToStructure<PARAMDESCEX>(desc.lpVarValue);
+                    varDefaultValue = ex.varDefaultValue;
+                }
             }
         }
 

@@ -40,6 +40,7 @@ namespace olewoo
         public override string ObjectName => ShortName;
         public override string Name => _name;
         public override TlibNode Parent => null;
+        public override string ToString() => Name;
 
         public override List<TlibNode> GenChildren()
         {
