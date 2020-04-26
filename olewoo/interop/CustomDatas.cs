@@ -9,15 +9,18 @@ namespace olewoo.interop
     {
         public CustomDatas(ITypeLib2 tl)
         {
-            var ptr = Marshal.AllocCoTaskMem(Marshal.SizeOf<CUSTDATA>());
-            tl.GetAllCustData(ptr);
-            var cd = Marshal.PtrToStructure<CUSTDATA>(ptr);
-            var items = new List<CUSTDATAITEM>();
-            for (int i = 0; i < cd.cCustData; i++)
+            if (tl != null)
             {
+                var ptr = Marshal.AllocCoTaskMem(Marshal.SizeOf<CUSTDATA>());
+                tl.GetAllCustData(ptr);
+                var cd = Marshal.PtrToStructure<CUSTDATA>(ptr);
+                var items = new List<CUSTDATAITEM>();
+                for (int i = 0; i < cd.cCustData; i++)
+                {
+                }
+                Items = items.ToArray();
+                ClearCustData(ptr);
             }
-            Items = items.ToArray();
-            ClearCustData(ptr);
         }
 
         public CUSTDATAITEM[] Items { get; }

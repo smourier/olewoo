@@ -5,18 +5,19 @@
  * CopyLeft, but please credit.
  *
  */
+using System.Text;
 using olewoo.interop;
 
 namespace olewoo
 {
     class IDLGrabber : interop.IDLFormatter
     {
-        string _s;
-        public override void AddLink(string s, string s2) => _s += s;
-        public override void AddString(string s) => _s += s;
-        public string Value => _s;
+        StringBuilder _s = new StringBuilder();
+        public override void AddLink(string s, string s2) => _s.Append(s);
+        public override void AddString(string s) => _s.Append(s);
+        public string Value => _s.ToString();
 
-        public override string ToString() => _s;
+        public override string ToString() => Value;
     }
 }
 

@@ -281,6 +281,9 @@ namespace olewoo.interop
                     break;
 
                 case VarEnum.VT_EMPTY:
+                    _action = (ti, ift, v) =>
+                    {
+                    };
                     break;
 
                 default:

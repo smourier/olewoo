@@ -41,7 +41,9 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.imglstTreeNodes = new System.Windows.Forms.ImageList(this.components);
             this.imgListMisc = new System.Windows.Forms.ImageList(this.components);
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tcTypeLibs = new olewoo.TabControlCB();
+            this.renderLinksInGeneratedCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +52,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(784, 24);
@@ -77,20 +80,20 @@
             this.registerContextHandlerToolStripMenuItem,
             this.unregisterContextHandlerToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // registerContextHandlerToolStripMenuItem
             // 
             this.registerContextHandlerToolStripMenuItem.Name = "registerContextHandlerToolStripMenuItem";
-            this.registerContextHandlerToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.registerContextHandlerToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.registerContextHandlerToolStripMenuItem.Text = "&Register context handler";
             this.registerContextHandlerToolStripMenuItem.Click += new System.EventHandler(this.RegisterContextHandlerToolStripMenuItem_Click);
             // 
             // unregisterContextHandlerToolStripMenuItem
             // 
             this.unregisterContextHandlerToolStripMenuItem.Name = "unregisterContextHandlerToolStripMenuItem";
-            this.unregisterContextHandlerToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.unregisterContextHandlerToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.unregisterContextHandlerToolStripMenuItem.Text = "&Unregister context handler";
             this.unregisterContextHandlerToolStripMenuItem.Click += new System.EventHandler(this.UnregisterContextHandlerToolStripMenuItem_Click);
             // 
@@ -147,6 +150,14 @@
             this.imgListMisc.Images.SetKeyName(0, "close_icon.png");
             this.imgListMisc.Images.SetKeyName(1, "search_icon.png");
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.renderLinksInGeneratedCodeToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "&View";
+            // 
             // tcTypeLibs
             // 
             this.tcTypeLibs.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -158,6 +169,14 @@
             this.tcTypeLibs.Size = new System.Drawing.Size(784, 416);
             this.tcTypeLibs.TabIndex = 2;
             this.tcTypeLibs.TabStop = false;
+            // 
+            // renderLinksInGeneratedCodeToolStripMenuItem
+            // 
+            this.renderLinksInGeneratedCodeToolStripMenuItem.CheckOnClick = true;
+            this.renderLinksInGeneratedCodeToolStripMenuItem.Name = "renderLinksInGeneratedCodeToolStripMenuItem";
+            this.renderLinksInGeneratedCodeToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.renderLinksInGeneratedCodeToolStripMenuItem.Text = "Render Links in Generated Code";
+            this.renderLinksInGeneratedCodeToolStripMenuItem.Click += new System.EventHandler(this.renderLinksInGeneratedCodeToolStripMenuItem_Click);
             // 
             // OleWoo
             // 
@@ -193,7 +212,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registerContextHandlerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unregisterContextHandlerToolStripMenuItem;
-
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem renderLinksInGeneratedCodeToolStripMenuItem;
     }
 }
 

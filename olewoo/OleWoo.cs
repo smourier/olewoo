@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace olewoo
 {
     public partial class OleWoo : Form
     {
         private MRUList _mrufiles;
+        private const string _regBaseKey = @"Software\benf.org\olewoo";
 
         public OleWoo()
         {
             InitializeComponent();
+            renderLinksInGeneratedCodeToolStripMenuItem.Checked = RenderLinks;
             tcTypeLibs.ImageList = imgListMisc;
-            _mrufiles = new MRUList(@"Software\benf.org\olewoo\MRU");
+            _mrufiles = new MRUList(Path.Combine(_regBaseKey, "MRU"));
             var args = Environment.GetCommandLineArgs().ToList();
             args.RemoveAt(0);
             foreach (string arg in args)
@@ -136,5 +140,39 @@ namespace olewoo
 
         private void RegisterContextHandlerToolStripMenuItem_Click(object sender, EventArgs e) => FileShellExtension.Register("dllfile", "OleWoo Context Menu", "Open with OleWoo", string.Format("\"{0}\" \"%L\"", Application.ExecutablePath));
         private void UnregisterContextHandlerToolStripMenuItem_Click(object sender, EventArgs e) => FileShellExtension.Unregister("dllfile", "OleWoo Context Menu");
+
+        public static bool RenderLinks
+        {
+            get => GetSetting(nameof(RenderLinks), false) is int i && i != 0;
+            set => SetSetting(nameof(RenderLinks), value ? 1 : 0);
+        }
+
+        public static object GetSetting(string name, object defaultValue)
+        {
+            using (var key = Registry.CurrentUser.OpenSubKey(_regBaseKey, false))
+            {
+                if (key == null)
+                    return defaultValue;
+
+                return key.GetValue(name, defaultValue);
+            }
+        }
+
+        private static void SetSetting(string name, object value)
+        {
+            var bk = Registry.CurrentUser;
+            var key = bk.OpenSubKey(_regBaseKey, true);
+            if (key == null)
+            {
+                key = bk.CreateSubKey(_regBaseKey);
+            }
+
+            using (key)
+            {
+                key.SetValue(name, value);
+            }
+        }
+
+        private void renderLinksInGeneratedCodeToolStripMenuItem_Click(object sender, EventArgs e) => RenderLinks = renderLinksInGeneratedCodeToolStripMenuItem.Checked;
     }
 }

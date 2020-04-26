@@ -94,9 +94,18 @@ namespace olewoo
                     rtfOleText.Text = "";
                     if (tn != null)
                     {
-                        tn.BuildIDLInto(_fo);
-                        _fo.Flush();
-                        rtfOleText.Select(0, 0);
+                        if (ModifierKeys.HasFlag(Keys.Shift) || !OleWoo.RenderLinks)
+                        {
+                            var t = new TextFormatter();
+                            tn.BuildIDLInto(t);
+                            rtfOleText.Text = t._sb.ToString();
+                        }
+                        else
+                        {
+                            tn.BuildIDLInto(_fo);
+                            _fo.Flush();
+                            rtfOleText.Select(0, 0);
+                        }
                     }
 
                     if (_std != null)
@@ -180,6 +189,63 @@ namespace olewoo
     }
 
     public delegate void SetTextDelg(string s);
+
+    class TextFormatter : IDLFormatter
+    {
+        internal StringBuilder _sb;
+        bool _bPendingApplyTabs;
+        internal readonly List<Link> _links = new List<Link>();
+
+        internal class Link
+        {
+            public string text;
+            public string link;
+            public int position;
+
+            public override string ToString() => position + "#" + link + " => " + text;
+        }
+
+        public TextFormatter()
+        {
+            _sb = new StringBuilder();
+            _bPendingApplyTabs = false;
+        }
+
+        public override string ToString() => _sb.ToString();
+
+        public override void NewLine()
+        {
+            _sb.Append("\r\n");
+            _bPendingApplyTabs = true;
+        }
+
+        private void ApplyTabs()
+        {
+            _bPendingApplyTabs = false;
+            if (_tabdepth > 0)
+            {
+                string s = "";
+                for (int x = 0; x < _tabdepth; ++x)
+                {
+                    s += "\t";
+                }
+                _sb.Append(s);
+            }
+        }
+
+        public override void AddString(string s)
+        {
+            if (_bPendingApplyTabs) ApplyTabs();
+            _sb.Append(s);
+        }
+
+        public override void AddLink(string s, string s2)
+        {
+            if (_bPendingApplyTabs) ApplyTabs();
+            _links.Add(new Link { text = s, link = s2, position = _sb.Length });
+            _sb.Append(s);
+        }
+    }
 
     class RichIDLFormatter : IDLFormatter
     {
