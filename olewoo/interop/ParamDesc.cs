@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using static System.Runtime.InteropServices.Marshal;
 
 namespace olewoo.interop
 {
@@ -14,8 +13,15 @@ namespace olewoo.interop
             {
                 if (desc.lpVarValue != IntPtr.Zero)
                 {
-                    var ex = PtrToStructure<PARAMDESCEX>(desc.lpVarValue);
-                    varDefaultValue = ex.varDefaultValue;
+                    //typedef struct tagPARAMDESCEX
+                    //{
+                    //    ULONG cBytes;
+                    //    VARIANTARG varDefaultValue;
+                    //}
+                    //PARAMDESCEX, *LPPARAMDESCEX;
+
+                    // for some reason, padding is set to 8 even in x86
+                    varDefaultValue = Marshal.GetObjectForNativeVariant(desc.lpVarValue + 8);
                 }
             }
         }
@@ -23,11 +29,5 @@ namespace olewoo.interop
         public System.Runtime.InteropServices.ComTypes.PARAMFLAG wParamFlags { get; }
         public object varDefaultValue { get; }
 
-        [StructLayout(LayoutKind.Sequential)]
-        private struct PARAMDESCEX
-        {
-            public int cBytes;
-            public VARIANT varDefaultValue;
-        }
-    }
+   }
 }

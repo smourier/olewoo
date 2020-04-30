@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices.ComTypes;
-using static System.Runtime.InteropServices.Marshal;
 
 namespace olewoo.interop
 {
@@ -9,17 +8,23 @@ namespace olewoo.interop
         public TypeAttr(ITypeInfo ti)
         {
             ti.GetTypeAttr(out var ptr);
-            var attr = PtrToStructure<TYPEATTR>(ptr);
-            typekind = attr.typekind;
-            wTypeFlags = attr.wTypeFlags;
-            cImplTypes = attr.cImplTypes;
-            cFuncs = attr.cFuncs;
-            cVars = attr.cVars;
-            tdescAlias = new TypeDesc(attr.tdescAlias);
-            guid = attr.guid;
-            wMajorVerNum = attr.wMajorVerNum;
-            wMinorVerNum = attr.wMinorVerNum;
-            ti.ReleaseTypeAttr(ptr);
+            try
+            {
+                var attr = System.Runtime.InteropServices.Marshal.PtrToStructure<TYPEATTR>(ptr);
+                typekind = attr.typekind;
+                wTypeFlags = attr.wTypeFlags;
+                cImplTypes = attr.cImplTypes;
+                cFuncs = attr.cFuncs;
+                cVars = attr.cVars;
+                tdescAlias = new TypeDesc(attr.tdescAlias);
+                guid = attr.guid;
+                wMajorVerNum = attr.wMajorVerNum;
+                wMinorVerNum = attr.wMinorVerNum;
+            }
+            finally
+            {
+                ti.ReleaseTypeAttr(ptr);
+            }
         }
 
         public TYPEKIND typekind { get; }
@@ -34,12 +39,12 @@ namespace olewoo.interop
 
         public string GetDllEntry(ITypeInfo ti, INVOKEKIND invKind, int memid)
         {
-            var ptr = AllocCoTaskMem(IntPtr.Size);
+            var ptr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(IntPtr.Size);
             ti.GetDllEntry(memid, invKind, ptr, IntPtr.Zero, IntPtr.Zero);
-            var bstr = ReadIntPtr(ptr);
-            var name = PtrToStringBSTR(bstr);
-            FreeBSTR(bstr);
-            FreeCoTaskMem(ptr);
+            var bstr = System.Runtime.InteropServices.Marshal.ReadIntPtr(ptr);
+            var name = System.Runtime.InteropServices.Marshal.PtrToStringBSTR(bstr);
+            System.Runtime.InteropServices.Marshal.FreeBSTR(bstr);
+            System.Runtime.InteropServices.Marshal.FreeCoTaskMem(ptr);
             return name;
         }
     }

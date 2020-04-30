@@ -75,10 +75,25 @@ namespace olewoo
                 }
             }
 
-            string help = _tlib.GetHelpDocumentation(out int cnt);
+            _tlib.GetDocumentation(-1, out var ignored, out var help, out var cnt, out string file);
             if (!string.IsNullOrEmpty(help))
             {
                 liba.Add("helpstring(\"" + help + "\")");
+            }
+
+            if (!string.IsNullOrEmpty(file))
+            {
+                file = file.Replace("\0", string.Empty);
+                string name;
+                try
+                {
+                    name = System.IO.Path.GetFileName(file);
+                }
+                catch
+                {
+                    name = file;
+                }
+                liba.Add("helpfile(\"" + name + "\")");
             }
 
             if (cnt != 0)

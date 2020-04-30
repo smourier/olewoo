@@ -9,14 +9,20 @@ namespace olewoo.interop
         public TypeLibAttr(ITypeLib tl)
         {
             tl.GetLibAttr(out var ptr);
-            var attr = PtrToStructure<TYPELIBATTR>(ptr);
-            guid = attr.guid;
-            wMajorVerNum = attr.wMajorVerNum;
-            wMinorVerNum = attr.wMinorVerNum;
-            lcid = attr.lcid;
-            syskind = attr.syskind;
-            wLibFlags = attr.wLibFlags;
-            tl.ReleaseTLibAttr(ptr);
+            try
+            {
+                var attr = PtrToStructure<TYPELIBATTR>(ptr);
+                guid = attr.guid;
+                wMajorVerNum = attr.wMajorVerNum;
+                wMinorVerNum = attr.wMinorVerNum;
+                lcid = attr.lcid;
+                syskind = attr.syskind;
+                wLibFlags = attr.wLibFlags;
+            }
+            finally
+            {
+                tl.ReleaseTLibAttr(ptr);
+            }
         }
 
         public Guid guid { get; }

@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -72,7 +72,6 @@
     <Compile Include="interop\TypeDesc.cs" />
     <Compile Include="interop\TypeLibAttr.cs" />
     <Compile Include="interop\VarDesc.cs" />
-    <Compile Include="interop\VARIANT.cs" />
     <Compile Include="TlibNode.cs" />
     <Compile Include="ITypeInfoXtra.cs" />
     <Compile Include="MRUList.cs" />
